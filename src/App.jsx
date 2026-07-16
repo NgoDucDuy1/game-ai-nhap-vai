@@ -990,8 +990,8 @@ const App = () => {
                         await signInAnonymously(auth);
                     }
                 } catch (error) {
-                    console.error("Error during sign-in:", error);
-                    setApiKeyStatus({ status: 'Lỗi xác thực', message: `Không thể xác thực: ${error.message}`, color: 'text-red-500' });
+                    console.error("Lỗi đăng nhập Firebase (bỏ qua nếu không dùng):", error);
+                    // setApiKeyStatus({ status: 'Lỗi xác thực', message: `Không thể xác thực Firebase: ${error.message}`, color: 'text-red-500' });
                 }
             }
             setIsAuthReady(true);
@@ -1151,7 +1151,7 @@ const App = () => {
         setApiKeyStatus({ status: 'Đang kiểm tra...', message: 'Vui lòng đợi.', color: 'text-blue-500' });
 
         const payload = {
-            model: "cohere/command-r7b-12-2024:free",
+            model: "cohere/command-r:free",
             messages: [{ role: "user", content: "Xin chào! Đây là một bài kiểm tra kết nối." }]
         };
         const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
@@ -1199,7 +1199,7 @@ const App = () => {
         }
 
         const payload = {
-            model: "cohere/command-r7b-12-2024:free",
+            model: "cohere/command-r:free",
             messages: [{ role: "user", content: promptText }]
         };
 
@@ -1552,7 +1552,7 @@ const App = () => {
         }));
 
         const payload = {
-            model: "cohere/command-r7b-12-2024:free",
+            model: "cohere/command-r:free",
             messages: openAiMessages
         };
 
