@@ -1152,9 +1152,9 @@ const App = () => {
 
         const payload = {
             models: [
+                "qwen/qwen3-next-80b-a3b-instruct:free",
                 "meta-llama/llama-3.3-70b-instruct:free",
-                "qwen/qwen-2.5-72b-instruct:free",
-                "openrouter/free"
+                "nousresearch/hermes-3-llama-3.1-405b:free"
             ],
             messages: [{ role: "user", content: "Xin chào! Đây là một bài kiểm tra kết nối." }]
         };
@@ -1204,9 +1204,9 @@ const App = () => {
 
         const payload = {
             models: [
+                "qwen/qwen3-next-80b-a3b-instruct:free",
                 "meta-llama/llama-3.3-70b-instruct:free",
-                "qwen/qwen-2.5-72b-instruct:free",
-                "openrouter/free"
+                "nousresearch/hermes-3-llama-3.1-405b:free"
             ],
             messages: [{ role: "user", content: promptText }]
         };
@@ -1561,9 +1561,9 @@ const App = () => {
 
         const payload = {
             models: [
+                "qwen/qwen3-next-80b-a3b-instruct:free",
                 "meta-llama/llama-3.3-70b-instruct:free",
-                "qwen/qwen-2.5-72b-instruct:free",
-                "openrouter/free"
+                "nousresearch/hermes-3-llama-3.1-405b:free"
             ],
             messages: openAiMessages
         };
