@@ -1151,7 +1151,7 @@ const App = () => {
         setApiKeyStatus({ status: 'Đang kiểm tra...', message: 'Vui lòng đợi.', color: 'text-blue-500' });
 
         const payload = {
-            model: "cohere/command-r:free",
+            model: "openrouter/free",
             messages: [{ role: "user", content: "Xin chào! Đây là một bài kiểm tra kết nối." }]
         };
         const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
@@ -1199,7 +1199,7 @@ const App = () => {
         }
 
         const payload = {
-            model: "cohere/command-r:free",
+            model: "openrouter/free",
             messages: [{ role: "user", content: promptText }]
         };
 
@@ -1552,7 +1552,7 @@ const App = () => {
         }));
 
         const payload = {
-            model: "cohere/command-r:free",
+            model: "openrouter/free",
             messages: openAiMessages
         };
 
