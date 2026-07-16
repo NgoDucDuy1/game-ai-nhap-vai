@@ -1152,12 +1152,8 @@ const App = () => {
 
         const payload = {
             models: [
-                "google/gemini-2.0-pro-exp-02-05:free",
-                "google/gemini-2.0-flash-lite-preview-02-05:free",
                 "meta-llama/llama-3.3-70b-instruct:free",
-                "nousresearch/hermes-3-llama-3.1-405b:free",
                 "qwen/qwen-2.5-72b-instruct:free",
-                "mistralai/mistral-nemo:free",
                 "openrouter/free"
             ],
             messages: [{ role: "user", content: "Xin chào! Đây là một bài kiểm tra kết nối." }]
@@ -1208,12 +1204,8 @@ const App = () => {
 
         const payload = {
             models: [
-                "google/gemini-2.0-pro-exp-02-05:free",
-                "google/gemini-2.0-flash-lite-preview-02-05:free",
                 "meta-llama/llama-3.3-70b-instruct:free",
-                "nousresearch/hermes-3-llama-3.1-405b:free",
                 "qwen/qwen-2.5-72b-instruct:free",
-                "mistralai/mistral-nemo:free",
                 "openrouter/free"
             ],
             messages: [{ role: "user", content: promptText }]
@@ -1569,12 +1561,8 @@ const App = () => {
 
         const payload = {
             models: [
-                "google/gemini-2.0-pro-exp-02-05:free",
-                "google/gemini-2.0-flash-lite-preview-02-05:free",
                 "meta-llama/llama-3.3-70b-instruct:free",
-                "nousresearch/hermes-3-llama-3.1-405b:free",
                 "qwen/qwen-2.5-72b-instruct:free",
-                "mistralai/mistral-nemo:free",
                 "openrouter/free"
             ],
             messages: openAiMessages
