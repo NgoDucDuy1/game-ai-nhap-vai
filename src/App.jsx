@@ -1151,11 +1151,7 @@ const App = () => {
         setApiKeyStatus({ status: 'Đang kiểm tra...', message: 'Vui lòng đợi.', color: 'text-blue-500' });
 
         const payload = {
-            models: [
-                "qwen/qwen3-next-80b-a3b-instruct:free",
-                "meta-llama/llama-3.3-70b-instruct:free",
-                "nousresearch/hermes-3-llama-3.1-405b:free"
-            ],
+            model: "google/gemini-2.5-flash-lite",
             messages: [{ role: "user", content: "Xin chào! Đây là một bài kiểm tra kết nối." }]
         };
         const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
@@ -1202,16 +1198,16 @@ const App = () => {
             return null;
         }
 
+        const PRIMARY_MODEL = "google/gemini-2.5-flash-lite";
+        const FALLBACK_MODEL = "openrouter/auto";
+
         const payload = {
-            models: [
-                "qwen/qwen3-next-80b-a3b-instruct:free",
-                "meta-llama/llama-3.3-70b-instruct:free",
-                "nousresearch/hermes-3-llama-3.1-405b:free"
-            ],
+            model: PRIMARY_MODEL,
             messages: [{ role: "user", content: promptText }]
         };
 
-        let keysTried = 0;
+        const MAX_RETRIES = 5;
+        let retryCount = 0;
         let success = false;
         let generatedText = null;
 
@@ -1223,8 +1219,8 @@ const App = () => {
             systemKeyIndexRef.current = (systemKeyIndexRef.current + 1) % SYSTEM_API_KEYS.length;
         }
 
-        // Vòng lặp xoay vòng Fallback (Dự phòng lỗi)
-        while (keysTried < (apiMode === 'systemKeys' ? SYSTEM_API_KEYS.length : 1) && !success) {
+        // Vòng lặp retry thông minh: thử lại với delay khi bị 429
+        while (retryCount < MAX_RETRIES && !success) {
             const effectiveApiKey = apiMode === 'systemKeys' ? SYSTEM_API_KEYS[attemptIndex] : apiKey;
             const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
@@ -1240,13 +1236,28 @@ const App = () => {
                     body: JSON.stringify(payload),
                 });
 
-                if (!response.ok) {
-                    // NẾU LÀ SYSTEM KEYS: Bỏ qua key bị lỗi, tự động thử key tiếp theo trong danh sách
-                    if (apiMode === 'systemKeys') {
-                        console.warn(`Key tại index [${attemptIndex}] bị lỗi ${response.status}. Chuyển sang key dự phòng...`);
+                if (response.status === 429) {
+                    // Rate limited - chuyển sang model dự phòng nếu đang dùng model chính
+                    if (payload.model === PRIMARY_MODEL) {
+                        console.warn(`Model chính bị giới hạn. Chuyển sang ${FALLBACK_MODEL}...`);
+                        payload.model = FALLBACK_MODEL;
+                    }
+                    const retryAfter = 3 + retryCount * 2; // 3s, 5s, 7s, 9s, 11s
+                    console.warn(`Rate limited (429). Đợi ${retryAfter}s rồi thử lại (lần ${retryCount + 1}/${MAX_RETRIES})...`);
+                    await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
+                    retryCount++;
+                    // Thử key khác nếu có nhiều key
+                    if (apiMode === 'systemKeys' && SYSTEM_API_KEYS.length > 1) {
                         attemptIndex = (attemptIndex + 1) % SYSTEM_API_KEYS.length;
-                        keysTried++;
-                        continue; // Chạy lại vòng lặp với key mới
+                    }
+                    continue;
+                }
+
+                if (!response.ok) {
+                    if (apiMode === 'systemKeys' && SYSTEM_API_KEYS.length > 1) {
+                        attemptIndex = (attemptIndex + 1) % SYSTEM_API_KEYS.length;
+                        retryCount++;
+                        continue;
                     }
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -1255,25 +1266,28 @@ const App = () => {
 
                 if (result.choices && result.choices[0]?.message?.content) {
                     generatedText = result.choices[0].message.content;
-                    success = true; // Thoát vòng lặp
+                    success = true;
                 } else {
                     throw new Error(result.error?.message || "Không thể lấy dữ liệu từ AI.");
                 }
             } catch (error) {
                 console.error('Error in generic fetch:', error);
-                if (apiMode === 'systemKeys') {
-                    console.warn(`Lỗi mạng/Code với Key index [${attemptIndex}]. Chuyển sang key dự phòng...`);
-                    attemptIndex = (attemptIndex + 1) % SYSTEM_API_KEYS.length;
-                    keysTried++;
-                } else {
+                if (retryCount < MAX_RETRIES - 1) {
+                    const retryAfter = 5 + retryCount * 3;
+                    console.warn(`Lỗi mạng, đợi ${retryAfter}s rồi thử lại...`);
+                    await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
+                    retryCount++;
+                } else if (apiMode !== 'systemKeys') {
                     setModalMessage({ show: true, title: 'Lỗi Mạng', content: `Lỗi kết nối khi gọi AI: ${error.message}`, type: 'error' });
-                    return null; // Thoát hẳn nếu dùng User Key
+                    return null;
+                } else {
+                    retryCount++;
                 }
             }
         }
 
-        if (!success && apiMode === 'systemKeys') {
-            setModalMessage({ show: true, title: 'Hệ Thống Quá Tải', content: "Tất cả các API Key dự phòng đều đã hết hạn ngạch hoặc bị lỗi. Vui lòng sử dụng API Key riêng của bạn hoặc thử lại sau.", type: 'error' });
+        if (!success) {
+            setModalMessage({ show: true, title: 'Hệ Thống Quá Tải', content: "Máy chủ AI đang bận. Vui lòng đợi vài giây rồi thử lại.", type: 'error' });
             return null;
         }
 
@@ -1559,16 +1573,16 @@ const App = () => {
             content: msg.parts[0].text
         }));
 
+        const PRIMARY_MODEL = "google/gemini-2.5-flash-lite";
+        const FALLBACK_MODEL = "openrouter/auto";
+
         const payload = {
-            models: [
-                "qwen/qwen3-next-80b-a3b-instruct:free",
-                "meta-llama/llama-3.3-70b-instruct:free",
-                "nousresearch/hermes-3-llama-3.1-405b:free"
-            ],
+            model: PRIMARY_MODEL,
             messages: openAiMessages
         };
 
-        let keysTried = 0;
+        const MAX_RETRIES = 5;
+        let retryCount = 0;
         let success = false;
         let finalResultText = null;
 
@@ -1580,8 +1594,8 @@ const App = () => {
             systemKeyIndexRef.current = (systemKeyIndexRef.current + 1) % SYSTEM_API_KEYS.length;
         }
 
-        // Vòng lặp xoay vòng Fallback (Dự phòng lỗi)
-        while (keysTried < (apiMode === 'systemKeys' ? SYSTEM_API_KEYS.length : 1) && !success) {
+        // Vòng lặp retry thông minh: thử lại với delay khi bị 429
+        while (retryCount < MAX_RETRIES && !success) {
             const effectiveApiKey = apiMode === 'systemKeys' ? SYSTEM_API_KEYS[attemptIndex] : apiKey;
             const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
@@ -1597,12 +1611,26 @@ const App = () => {
                     body: JSON.stringify(payload),
                 });
 
-                if (!response.ok) {
-                    if (apiMode === 'systemKeys') {
-                        console.warn(`[GameLoop] Key tại index [${attemptIndex}] bị lỗi ${response.status}. Chuyển sang key dự phòng...`);
+                if (response.status === 429) {
+                    if (payload.model === PRIMARY_MODEL) {
+                        console.warn(`[GameLoop] Model chính bị giới hạn. Chuyển sang ${FALLBACK_MODEL}...`);
+                        payload.model = FALLBACK_MODEL;
+                    }
+                    const retryAfter = 3 + retryCount * 2;
+                    console.warn(`[GameLoop] Rate limited (429). Đợi ${retryAfter}s rồi thử lại (lần ${retryCount + 1}/${MAX_RETRIES})...`);
+                    await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
+                    retryCount++;
+                    if (apiMode === 'systemKeys' && SYSTEM_API_KEYS.length > 1) {
                         attemptIndex = (attemptIndex + 1) % SYSTEM_API_KEYS.length;
-                        keysTried++;
-                        continue; // Bỏ qua phần dưới, quay lại đầu vòng lặp để lấy key mới
+                    }
+                    continue;
+                }
+
+                if (!response.ok) {
+                    if (apiMode === 'systemKeys' && SYSTEM_API_KEYS.length > 1) {
+                        attemptIndex = (attemptIndex + 1) % SYSTEM_API_KEYS.length;
+                        retryCount++;
+                        continue;
                     }
                     const errorText = await response.text();
                     throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
@@ -1612,22 +1640,25 @@ const App = () => {
 
                 if (result.choices && result.choices[0]?.message?.content) {
                     finalResultText = result.choices[0].message.content;
-                    success = true; // Thoát vòng lặp
+                    success = true;
                 } else {
-                    throw new Error(result.error?.message || "Không nhận được phản hồi hợp lệ từ Gemini.");
+                    throw new Error(result.error?.message || "Không nhận được phản hồi hợp lệ từ AI.");
                 }
             } catch (error) {
-                console.error('Error calling Gemini API:', error);
-                if (apiMode === 'systemKeys') {
-                    console.warn(`[GameLoop] Lỗi mạng với Key index [${attemptIndex}]. Chuyển sang key dự phòng...`);
-                    attemptIndex = (attemptIndex + 1) % SYSTEM_API_KEYS.length;
-                    keysTried++;
-                } else {
-                    const networkError = `Lỗi kết nối đến Gemini API: ${error.message}. Vui lòng kiểm tra kết nối mạng.`;
+                console.error('Error calling AI API:', error);
+                if (retryCount < MAX_RETRIES - 1) {
+                    const retryAfter = 5 + retryCount * 3;
+                    console.warn(`[GameLoop] Lỗi mạng, đợi ${retryAfter}s rồi thử lại...`);
+                    await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
+                    retryCount++;
+                } else if (apiMode !== 'systemKeys') {
+                    const networkError = `Lỗi kết nối đến AI API: ${error.message}. Vui lòng kiểm tra kết nối mạng.`;
                     setStoryHistory(prev => [...prev, { type: 'system', content: networkError }]);
                     setChoices([]);
                     setModalMessage({ show: true, title: 'Lỗi Mạng', content: networkError, type: 'error' });
-                    break; // Thoát hẳn
+                    break;
+                } else {
+                    retryCount++;
                 }
             }
         }
@@ -1651,12 +1682,11 @@ const App = () => {
             const updatedChatHistory = [...currentChatHistory, { role: "model", parts: [{ text: finalResultText }] }];
             setChatHistoryForGemini(updatedChatHistory);
 
-        } else if (apiMode === 'systemKeys' && !success) {
-            // Hết tất cả các key
-            const errorText = "Hệ thống Quá Tải: Toàn bộ API Key dự phòng đều đã cạn kiệt hoặc bị lỗi. Vui lòng tự cung cấp API Key của riêng bạn trong mục Cài Đặt hoặc quay lại sau.";
+        } else if (!success) {
+            const errorText = "Máy chủ AI đang bận. Vui lòng đợi vài giây rồi bấm Gửi lại.";
             setStoryHistory(prev => [...prev, { type: 'system', content: errorText }]);
             setChoices([]);
-            setModalMessage({ show: true, title: 'Hết API Key', content: errorText, type: 'error' });
+            setModalMessage({ show: true, title: 'Máy Chủ Bận', content: errorText, type: 'error' });
         }
 
         if (!isProcessingAction) setIsLoading(false);
