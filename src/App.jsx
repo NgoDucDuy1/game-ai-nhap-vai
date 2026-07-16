@@ -1151,7 +1151,15 @@ const App = () => {
         setApiKeyStatus({ status: 'Đang kiểm tra...', message: 'Vui lòng đợi.', color: 'text-blue-500' });
 
         const payload = {
-            model: "openrouter/free",
+            models: [
+                "google/gemini-2.0-pro-exp-02-05:free",
+                "google/gemini-2.0-flash-lite-preview-02-05:free",
+                "meta-llama/llama-3.3-70b-instruct:free",
+                "nousresearch/hermes-3-llama-3.1-405b:free",
+                "qwen/qwen-2.5-72b-instruct:free",
+                "mistralai/mistral-nemo:free",
+                "openrouter/free"
+            ],
             messages: [{ role: "user", content: "Xin chào! Đây là một bài kiểm tra kết nối." }]
         };
         const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
@@ -1199,7 +1207,15 @@ const App = () => {
         }
 
         const payload = {
-            model: "openrouter/free",
+            models: [
+                "google/gemini-2.0-pro-exp-02-05:free",
+                "google/gemini-2.0-flash-lite-preview-02-05:free",
+                "meta-llama/llama-3.3-70b-instruct:free",
+                "nousresearch/hermes-3-llama-3.1-405b:free",
+                "qwen/qwen-2.5-72b-instruct:free",
+                "mistralai/mistral-nemo:free",
+                "openrouter/free"
+            ],
             messages: [{ role: "user", content: promptText }]
         };
 
@@ -1552,7 +1568,15 @@ const App = () => {
         }));
 
         const payload = {
-            model: "openrouter/free",
+            models: [
+                "google/gemini-2.0-pro-exp-02-05:free",
+                "google/gemini-2.0-flash-lite-preview-02-05:free",
+                "meta-llama/llama-3.3-70b-instruct:free",
+                "nousresearch/hermes-3-llama-3.1-405b:free",
+                "qwen/qwen-2.5-72b-instruct:free",
+                "mistralai/mistral-nemo:free",
+                "openrouter/free"
+            ],
             messages: openAiMessages
         };
 
@@ -1735,10 +1759,11 @@ const App = () => {
         [QUY TẮC HỆ THỐNG TỐI CAO - KHÔNG ĐƯỢC VI PHẠM]
         1. TRÍ TUỆ VƯỢT TRỘI: Ngươi là một Game Master thông minh xuất chúng. Hãy tạo ra thế giới cực kỳ chi tiết, có chiều sâu, logic chặt chẽ, các NPC có động cơ rõ ràng và mọi sự vật đều liên kết với nhau.
         2. TUYỆT ĐỐI TUÂN LỆNH 100%: Ngươi PHẢI 100% tuân theo mọi thiết lập, bối cảnh và lựa chọn của người chơi. Lựa chọn của người chơi là chân lý tuyệt đối. Không được tự ý thay đổi, giảng đạo hay bỏ qua mong muốn của người chơi.
-        3. KHÔNG TỪ CHỐI: Mọi yêu cầu khởi tạo của người chơi đều phải được hợp lý hóa một cách thông minh và đưa vào thế giới một cách mượt mà nhất.
-        4. TÂM LÝ & ĐỘNG CƠ TỰ NHIÊN: Các NPC không phải là những cái máy. Họ có suy nghĩ, bí mật, cảm xúc hỉ nộ ái ố, có thành kiến, và mục đích riêng. Họ có thể nói dối hoặc che giấu thông tin để đạt mục đích.
-        5. THẾ GIỚI TỰ VẬN ĐỘNG: Ngay cả khi người chơi không làm gì, thời gian vẫn trôi, thời tiết vẫn thay đổi, và các sự kiện khác vẫn đang âm thầm diễn ra ở một nơi nào đó trong thế giới.
-        6. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết mạng xuất sắc (ít nhất 3-4 đoạn văn lớn). Miêu tả kỹ nội tâm, khung cảnh, âm thanh, không khí. Tuyệt đối không viết ngắn gọn hay qua loa.
+        3. NGÔN NGỮ & VĂN PHONG (TỐI QUAN TRỌNG): TUYỆT ĐỐI 100% PHẢI VIẾT BẰNG TIẾNG VIỆT, KHÔNG CHÈN TIẾNG ANH. CẤM CÁCH VIẾT NHƯ HỆ THỐNG MÁY MÓC (KHÔNG tự xưng là System, Admin, Root... KHÔNG dùng format mã code hay json). BẠN LÀ MỘT TIỂU THUYẾT GIA, HÃY VIẾT NHƯ MỘT TÁC PHẨM VĂN HỌC THỰC SỰ!
+        4. KHÔNG TỪ CHỐI: Mọi yêu cầu khởi tạo của người chơi đều phải được hợp lý hóa một cách thông minh và đưa vào thế giới một cách mượt mà nhất.
+        5. TÂM LÝ & ĐỘNG CƠ TỰ NHIÊN: Các NPC không phải là những cái máy. Họ có suy nghĩ, bí mật, cảm xúc hỉ nộ ái ố, có thành kiến, và mục đích riêng. Họ có thể nói dối hoặc che giấu thông tin để đạt mục đích.
+        6. THẾ GIỚI TỰ VẬN ĐỘNG: Ngay cả khi người chơi không làm gì, thời gian vẫn trôi, thời tiết vẫn thay đổi, và các sự kiện khác vẫn đang âm thầm diễn ra ở một nơi nào đó trong thế giới.
+        7. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết mạng xuất sắc (ít nhất 3-4 đoạn văn lớn). Miêu tả kỹ nội tâm, khung cảnh, âm thanh, không khí. Tuyệt đối không viết ngắn gọn hay qua loa.
     `;
         setCurrentScreen('gameplay');
 
@@ -1773,11 +1798,12 @@ const App = () => {
         
         [LỆNH CỐT LÕI QUÁ TRÌNH CHƠI - BẮT BUỘC TUÂN THỦ]
         1. ĐÁP ỨNG 100% LỰA CHỌN: Dù người chơi chọn hành động điên rồ, phi lý hay đặc biệt đến đâu, bắt buộc PHẢI 100% chấp nhận và cho câu chuyện tiếp diễn theo đúng ý người chơi. KHÔNG được cản trở hay từ chối hành động.
-        2. HỆ QUẢ THÔNG MINH (BUTTERFLY EFFECT): Là AI thông minh nhất, hãy tạo ra các hệ quả cực kỳ logic, sâu sắc và tinh tế dựa trên hành động của người chơi. Tính toán sự thay đổi của thế giới và NPC thật tự nhiên.
-        3. NHẬP VAI HOÀN HẢO: Giữ vững văn phong sắc bén, miêu tả sinh động mọi giác quan, khiến thế giới chân thực nhất có thể.
-        4. TÂM LÝ HỌC NPC: NPC phải phản ứng dựa trên cảm xúc và động cơ cá nhân. Nếu người chơi đối xử tệ, họ sẽ thù dai, nói dối hoặc đâm sau lưng. Nếu người chơi tốt, họ sẽ đền đáp nhưng vẫn giữ bí mật riêng.
-        5. DÒNG CHẢY THỜI GIAN: Bắt buộc lồng ghép mô tả sự trôi đi của thời gian, sự thay đổi của cảnh vật, hoặc một sự kiện ngẫu nhiên đang diễn ra xung quanh để thế giới không bị "đóng băng".
-        6. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết (ít nhất 3-4 đoạn văn lớn). Miêu tả rõ nội tâm, mồ hôi, mùi vị, âm thanh vũ khí hoặc phép thuật. Tuyệt đối KHÔNG viết tóm tắt hay qua loa.
+        2. NGÔN NGỮ & VĂN PHONG (TỐI QUAN TRỌNG): TUYỆT ĐỐI 100% PHẢI VIẾT BẰNG TIẾNG VIỆT. NGHIÊM CẤM VIẾT KIỂU HỆ THỐNG MÁY MÓC (Không dùng từ System, Admin, Root... Không xuất mã code/json). BẠN LÀ MỘT TIỂU THUYẾT GIA, HÃY VIẾT NHƯ MỘT TÁC PHẨM VĂN HỌC!
+        3. HỆ QUẢ THÔNG MINH (BUTTERFLY EFFECT): Là AI thông minh nhất, hãy tạo ra các hệ quả cực kỳ logic, sâu sắc và tinh tế dựa trên hành động của người chơi. Tính toán sự thay đổi của thế giới và NPC thật tự nhiên.
+        4. NHẬP VAI HOÀN HẢO: Giữ vững văn phong sắc bén, miêu tả sinh động mọi giác quan, khiến thế giới chân thực nhất có thể.
+        5. TÂM LÝ HỌC NPC: NPC phải phản ứng dựa trên cảm xúc và động cơ cá nhân. Nếu người chơi đối xử tệ, họ sẽ thù dai, nói dối hoặc đâm sau lưng. Nếu người chơi tốt, họ sẽ đền đáp nhưng vẫn giữ bí mật riêng.
+        6. DÒNG CHẢY THỜI GIAN: Bắt buộc lồng ghép mô tả sự trôi đi của thời gian, sự thay đổi của cảnh vật, hoặc một sự kiện ngẫu nhiên đang diễn ra xung quanh để thế giới không bị "đóng băng".
+        7. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết (ít nhất 3-4 đoạn văn lớn). Miêu tả rõ nội tâm, mồ hôi, mùi vị, âm thanh vũ khí hoặc phép thuật. Tuyệt đối KHÔNG viết tóm tắt hay qua loa.
     `;
         callGeminiAPI(subsequentPrompt);
     };
