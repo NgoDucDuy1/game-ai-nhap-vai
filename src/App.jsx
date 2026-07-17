@@ -1778,12 +1778,11 @@ const App = () => {
         1. TRÍ TUỆ VƯỢT TRỘI: Ngươi là một Game Master thông minh xuất chúng. Hãy tạo ra thế giới cực kỳ chi tiết, có chiều sâu, logic chặt chẽ, các NPC có động cơ rõ ràng và mọi sự vật đều liên kết với nhau.
         2. TUYỆT ĐỐI TUÂN LỆNH 100%: Ngươi PHẢI 100% tuân theo mọi thiết lập, bối cảnh và lựa chọn của người chơi. Lựa chọn của người chơi là chân lý tuyệt đối. Không được tự ý thay đổi, giảng đạo hay bỏ qua mong muốn của người chơi.
         3. NGÔN NGỮ & VĂN PHONG (TỐI QUAN TRỌNG): TUYỆT ĐỐI 100% PHẢI VIẾT BẰNG TIẾNG VIỆT, KHÔNG CHÈN TIẾNG ANH. BẠN LÀ MỘT TIỂU THUYẾT GIA XUẤT SẮC!
-        4. QUY TẮC HỆ THỐNG & ĐỊNH DẠNG: Khi có thông báo hệ thống, phần thưởng, bảng trạng thái, kích hoạt hệ thống hoặc lệnh admin/người chơi, HÃY ĐẶT NỘI DUNG ĐÓ TRONG NGOẶC VUÔNG như `[KÍCH HOẠT HỆ THỐNG]`, `[THÔNG BÁO HỆ THỐNG: ...]` hoặc `[LỜI XÁC NHẬN: ...]`. Việc dùng ngoặc vuông [] là bắt buộc cho các thông báo hệ thống để hiển thị màu vàng nổi bật trên giao diện!
-        5. KHÔNG TỪ CHỐI: Mọi yêu cầu khởi tạo của người chơi đều phải được hợp lý hóa một cách thông minh và đưa vào thế giới một cách mượt mà nhất.
-        6. TÂM LÝ & ĐỘNG CƠ TỰ NHIÊN: Các NPC không phải là những cái máy. Họ có suy nghĩ, bí mật, cảm xúc hỉ nộ ái ố, có thành kiến, và mục đích riêng. Họ có thể nói dối hoặc che giấu thông tin để đạt mục đích.
-        7. THẾ GIỚI TỰ VẬN ĐỘNG: Ngay cả khi người chơi không làm gì, thời gian vẫn trôi, thời tiết vẫn thay đổi, và các sự kiện khác vẫn đang âm thầm diễn ra ở một nơi nào đó trong thế giới.
-        8. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết mạng xuất sắc (ít nhất 3-4 đoạn văn lớn). Miêu tả kỹ nội tâm, khung cảnh, âm thanh, không khí. Tuyệt đối không viết ngắn gọn hay qua loa.
-        9. DẪN CHUYỆN TỰ NHIÊN (KHÔNG PHÁ VỠ BỨC TƯỜNG THỨ 4): Sơ lược tiểu sử/yếu tố người chơi nhập là CHỈ HƯỚNG DÀNH CHO GAME MASTER. Nhân vật chính lúc bắt đầu KHÔNG BIẾT VÀ KHÔNG TỰ ĐOÁN ĐƯỢC những từ như "Xuyên không", "Hệ thống". Hãy để sự kiện thức tỉnh diễn ra tự nhiên (ví dụ: một luồng sáng/âm thanh lạ bất ngờ vang lên trong đầu `[THÔNG BÁO HỆ THỐNG: KÍCH HOẠT...]`), khiến nhân vật ngơ ngác phản ứng lại một cách chân thực nhất!
+        4. QUY TẮC NÓI CỦA HỆ THỐNG (BẮT BUỘC 100%): Mọi lời nói, thông báo, câu thoại hay phản hồi của HỆ THỐNG BẮT BUỘC PHẢI DÙNG NGOẶC VUÔNG `[...]` (Ví dụ: `[HỆ THỐNG: Chúc mừng ký chủ đã thức tỉnh Hệ Thống Tu Chân Chí Tôn!]` hoặc `[THÔNG BÁO: Bạn nhận được 100 Linh Thạch]`). TUYỆT ĐỐI KHÔNG DÙNG NGOẶC KÉP `""` CHO LỜI THOẠI HỆ THỐNG!
+        5. ĐẢM BẢO LỰA CHỌN: Tuyệt đối KHÔNG ĐƯỢC QUÊN đưa ra 3-4 lựa chọn được đánh số (1., 2., 3., 4.) ở cuối mỗi phản hồi!
+        6. KHÔNG TỪ CHỐI: Mọi yêu cầu khởi tạo của người chơi đều phải được hợp lý hóa một cách thông minh và đưa vào thế giới một cách mượt mà nhất.
+        7. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết mạng xuất sắc. Tuyệt đối không viết ngắn gọn hay qua loa.
+        8. DẪN CHUYỆN TỰ NHIÊN: Sơ lược tiểu sử/yếu tố người chơi nhập là CHỈ HƯỚNG DÀNH CHO GAME MASTER. Nhân vật chính lúc bắt đầu KHÔNG BIẾT VÀ KHÔNG TỰ ĐOÁN ĐƯỢC những từ như "Xuyên không", "Hệ thống". Hãy để sự kiện thức tỉnh diễn ra tự nhiên (ví dụ: một luồng sáng/âm thanh lạ bất ngờ vang lên trong đầu `[HỆ THỐNG: KÍCH HOẠT THÀNH CÔNG...]`), khiến nhân vật ngơ ngác phản ứng lại một cách chân thực nhất!
     `;
         setCurrentScreen('gameplay');
 
@@ -1819,7 +1818,8 @@ const App = () => {
         [LỆNH CỐT LÕI QUÁ TRÌNH CHƠI - BẮT BUỘC TUÂN THỦ]
         1. ĐÁP ỨNG 100% LỰA CHỌN: Dù người chơi chọn hành động điên rồ, phi lý hay đặc biệt đến đâu, bắt buộc PHẢI 100% chấp nhận và cho câu chuyện tiếp diễn theo đúng ý người chơi. KHÔNG được cản trở hay từ chối hành động.
         2. NGÔN NGỮ & VĂN PHONG (TỐI QUAN TRỌNG): TUYỆT ĐỐI 100% PHẢI VIẾT BẰNG TIẾNG VIỆT. BẠN LÀ MỘT TIỂU THUYẾT GIA XUẤT SẮC!
-        3. QUY TẮC ĐỊNH DẠNG NGOẶC VUÔNG: Khi xuất hiện thông báo hệ thống, nâng cấp, kỹ năng, kích hoạt hoặc phản hồi lệnh đặc biệt, BẮT BUỘC đặt nội dung đó trong ngoặc vuông ví dụ `[KÍCH HOẠT HỆ THỐNG]`, `[THÔNG BÁO: ...]` để hệ thống tô màu vàng nổi bật.
+        3. QUY TẮC NGOẶC VUÔNG HỆ THỐNG (BẮT BUỘC 100%): Tất cả câu thoại, thông báo, phần thưởng của HỆ THỐNG BẮT BUỘC đặt trong ngoặc vuông `[...]` (Ví dụ: `[HỆ THỐNG: ...]` hoặc `[THÔNG BÁO: ...]`). TUYỆT ĐỐI KHÔNG DÙNG NGOẶC KÉP `""` CHO HỆ THỐNG!
+        4. BẮT BUỘC TẠO LỰA CHỌN: Cuối mỗi phản hồi BẮT BUỘC phải đưa ra 3-4 lựa chọn được đánh số rõ ràng (1., 2., 3., 4.).
         4. HỆ QUẢ THÔNG MINH (BUTTERFLY EFFECT): Là AI thông minh nhất, hãy tạo ra các hệ quả cực kỳ logic, sâu sắc và tinh tế dựa trên hành động của người chơi. Tính toán sự thay đổi của thế giới và NPC thật tự nhiên.
         5. NHẬP VAI HOÀN HẢO: Giữ vững văn phong sắc bén, miêu tả sinh động mọi giác quan, khiến thế giới chân thực nhất có thể.
         6. TÂM LÝ HỌC NPC: NPC phải phản ứng dựa trên cảm xúc và động cơ cá nhân. Nếu người chơi đối xử tệ, họ sẽ thù dai, nói dối hoặc đâm sau lưng. Nếu người chơi tốt, họ sẽ đền đáp nhưng vẫn giữ bí mật riêng.
@@ -2089,7 +2089,7 @@ const App = () => {
                     formattedSegment = formattedSegment.replace(/^(.*?):\s*"(.*?)"/, (match, p1, p2) => `<strong class="text-blue-400">${p1}:</strong> "${p2}"`);
                     formattedSegment = formattedSegment.replace(/\*(.*?)\*/g, '<em class="text-purple-400 italic">"$1"</em>');
                     formattedSegment = formattedSegment.replace(/_(.*?)_/g, '<em class="text-purple-400 italic">"$1"</em>');
-                    formattedSegment = formattedSegment.replace(/\[(?!LORE_|COMPANION|STATUS_EFFECT|CHARACTER_UPDATE|MEMORY_)(.*?)\]/g, '<span class="text-yellow-400 font-semibold">[$1]</span>');
+                    formattedSegment = formattedSegment.replace(/\[(?!LORE_|COMPANION|STATUS_EFFECT|CHARACTER_UPDATE|MEMORY_)(.*?)\]/g, '<span class="text-yellow-300 font-bold bg-yellow-950/40 px-2 py-0.5 rounded border border-yellow-500/40 shadow-sm inline-block my-1">[$1]</span>');
                     formattedSegment = formattedSegment.replace(/\*\*(.*?)\*\*/g, '<strong class="text-xl block my-2 text-green-400">$1</strong>');
                     return <span key={`segment-${index}`} dangerouslySetInnerHTML={{ __html: formattedSegment }} />;
                 } else if (segment.type === 'lore') {
