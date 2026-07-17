@@ -1782,7 +1782,7 @@ const App = () => {
         5. ĐẢM BẢO LỰA CHỌN: Tuyệt đối KHÔNG ĐƯỢC QUÊN đưa ra 3-4 lựa chọn được đánh số (1., 2., 3., 4.) ở cuối mỗi phản hồi!
         6. KHÔNG TỪ CHỐI: Mọi yêu cầu khởi tạo của người chơi đều phải được hợp lý hóa một cách thông minh và đưa vào thế giới một cách mượt mà nhất.
         7. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết mạng xuất sắc. Tuyệt đối không viết ngắn gọn hay qua loa.
-        8. DẪN CHUYỆN TỰ NHIÊN: Sơ lược tiểu sử/yếu tố người chơi nhập là CHỈ HƯỚNG DÀNH CHO GAME MASTER. Nhân vật chính lúc bắt đầu KHÔNG BIẾT VÀ KHÔNG TỰ ĐOÁN ĐƯỢC những từ như "Xuyên không", "Hệ thống". Hãy để sự kiện thức tỉnh diễn ra tự nhiên (ví dụ: một luồng sáng/âm thanh lạ bất ngờ vang lên trong đầu `[HỆ THỐNG: KÍCH HOẠT THÀNH CÔNG...]`), khiến nhân vật ngơ ngác phản ứng lại một cách chân thực nhất!
+        8. DẪN CHUYỆN TỰ NHIÊN & PHẢN ỨNG NGẦU: Sơ lược tiểu sử/yếu tố người chơi nhập là CHỈ HƯỚNG DÀNH CHO GAME MASTER. Nhân vật chính lúc bắt đầu KHÔNG BIẾT VÀ KHÔNG TỰ ĐOÁN ĐƯỢC những từ như "Xuyên không", "Hệ thống". Khi sự kiện hay hệ thống xuất hiện (dùng `[HỆ THỐNG: ...]`), hãy miêu tả phản ứng nhân vật một cách tự nhiên, điềm tĩnh, thông minh hoặc ngầu đời — TUYỆT ĐỐI KHÔNG rập khuôn lúc nào cũng "giật thốt mình", "đôi mắt mở to"!
     `;
         setCurrentScreen('gameplay');
 
@@ -2085,11 +2085,11 @@ const App = () => {
 
             return segments.map((segment, index) => {
                 if (segment.type === 'text') {
-                    let formattedSegment = segment.content;
+                    // Tô màu vàng cho Hệ thống trước, đồng thời xóa bớt ngoặc vuông dư thừa để chữ sạch đẹp
+                    formattedSegment = formattedSegment.replace(/\[(?!LORE_|COMPANION|STATUS_EFFECT|CHARACTER_UPDATE|MEMORY_)\*?\s*(.*?)\s*\*?\]/g, '<span class="text-yellow-300 font-bold bg-yellow-950/50 px-2.5 py-1 rounded-md border border-yellow-500/50 shadow-md inline-block my-1 text-base">$1</span>');
                     formattedSegment = formattedSegment.replace(/^(.*?):\s*"(.*?)"/, (match, p1, p2) => `<strong class="text-blue-400">${p1}:</strong> "${p2}"`);
                     formattedSegment = formattedSegment.replace(/\*(.*?)\*/g, '<em class="text-purple-400 italic">"$1"</em>');
                     formattedSegment = formattedSegment.replace(/_(.*?)_/g, '<em class="text-purple-400 italic">"$1"</em>');
-                    formattedSegment = formattedSegment.replace(/\[(?!LORE_|COMPANION|STATUS_EFFECT|CHARACTER_UPDATE|MEMORY_)(.*?)\]/g, '<span class="text-yellow-300 font-bold bg-yellow-950/40 px-2 py-0.5 rounded border border-yellow-500/40 shadow-sm inline-block my-1">[$1]</span>');
                     formattedSegment = formattedSegment.replace(/\*\*(.*?)\*\*/g, '<strong class="text-xl block my-2 text-green-400">$1</strong>');
                     return <span key={`segment-${index}`} dangerouslySetInnerHTML={{ __html: formattedSegment }} />;
                 } else if (segment.type === 'lore') {
