@@ -130,7 +130,7 @@ const SettingsModal = ({
                     <div>
                         <h3 className="text-xl font-semibold text-sky-400 mb-3"> Chế độ Nhà phát triển </h3>
                         <div className="flex items-center">
-                            <input 
+                            <input
                                 id="dev-mode-toggle"
                                 type="checkbox"
                                 checked={isDevMode}
@@ -290,7 +290,7 @@ const GameSetupScreen = ({
                             <p className="text-xs text-gray-400 italic"> Khi tick chọn, AI có thể tạo nội dung khiêu dâm, bạo lực, kinh dị cực đoan.</p>
 
                             <div className="flex items-center mt-3 border-t border-gray-600 pt-3">
-                                <input 
+                                <input
                                     type="checkbox"
                                     name="peacefulMode"
                                     id="peacefulMode"
@@ -328,7 +328,7 @@ const GameSetupScreen = ({
                             <div>
                                 <label htmlFor="initialRealmInputMode" className="block text-lg font-medium text-gray-300 mb-1"> Tu Vi / Cảnh Giới Ban Đầu: </label>
                                 <div className="flex flex-col gap-2">
-                                    <select 
+                                    <select
                                         name="initialRealmInputMode"
                                         id="initialRealmInputMode"
                                         value={gameSettings.initialRealmInputMode}
@@ -342,7 +342,7 @@ const GameSetupScreen = ({
                                         <option value="custom"> Tự Chọn(Nhập thủ công) </option>
                                     </select>
                                     {gameSettings.initialRealmInputMode === 'custom' && (
-                                        <input 
+                                        <input
                                             type="text"
                                             name="initialRealm"
                                             value={gameSettings.initialRealm}
@@ -405,7 +405,7 @@ const GameSetupScreen = ({
                                 <div className="md:col-span-3">
                                     <label htmlFor={`elementDesc-${index}`} className="block text-sm font-medium text-gray-300 mb-1"> Mô Tả Thực Thể: </label>
                                     <div className="flex items-start gap-2">
-                                        <textarea 
+                                        <textarea
                                             id={`elementDesc-${index}`}
                                             name="description"
                                             value={element.description}
@@ -414,7 +414,7 @@ const GameSetupScreen = ({
                                             placeholder="Mô tả chi tiết về thực thể này..."
                                             className="w-full p-2 bg-gray-500 border border-gray-400 rounded-md focus:ring-lime-500 focus:border-lime-500 text-sm"
                                         />
-                                        <button 
+                                        <button
                                             onClick={() => handleGenerateInitialElementDescription(index)}
                                             disabled={isGeneratingInitialElementDesc[element.id] || !element.name || (apiMode === 'userKey' && !apiKey)}
                                             className="p-2.5 bg-lime-600 hover:bg-lime-700 rounded-md disabled:bg-gray-500 self-center"
@@ -433,7 +433,7 @@ const GameSetupScreen = ({
                             </button>
                         </div>
                     ))}
-                    <button 
+                    <button
                         onClick={addInitialWorldElement}
                         className="w-full mt-2 py-2 px-4 bg-lime-700 hover:bg-lime-800 text-white font-semibold rounded-lg shadow-md flex items-center justify-center text-sm"
                     >
@@ -1159,7 +1159,7 @@ const App = () => {
         try {
             const response = await fetch(apiUrl, {
                 method: 'POST',
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${inputApiKey}`,
                     'HTTP-Referer': window.location.href,
@@ -1227,7 +1227,7 @@ const App = () => {
             try {
                 const response = await fetch(apiUrl, {
                     method: 'POST',
-                    headers: { 
+                    headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${effectiveApiKey}`,
                         'HTTP-Referer': window.location.href,
@@ -1602,7 +1602,7 @@ const App = () => {
             try {
                 const response = await fetch(apiUrl, {
                     method: 'POST',
-                    headers: { 
+                    headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${effectiveApiKey}`,
                         'HTTP-Referer': window.location.href,
@@ -1777,11 +1777,12 @@ const App = () => {
         [QUY TẮC HỆ THỐNG TỐI CAO - KHÔNG ĐƯỢC VI PHẠM]
         1. TRÍ TUỆ VƯỢT TRỘI: Ngươi là một Game Master thông minh xuất chúng. Hãy tạo ra thế giới cực kỳ chi tiết, có chiều sâu, logic chặt chẽ, các NPC có động cơ rõ ràng và mọi sự vật đều liên kết với nhau.
         2. TUYỆT ĐỐI TUÂN LỆNH 100%: Ngươi PHẢI 100% tuân theo mọi thiết lập, bối cảnh và lựa chọn của người chơi. Lựa chọn của người chơi là chân lý tuyệt đối. Không được tự ý thay đổi, giảng đạo hay bỏ qua mong muốn của người chơi.
-        3. NGÔN NGỮ & VĂN PHONG (TỐI QUAN TRỌNG): TUYỆT ĐỐI 100% PHẢI VIẾT BẰNG TIẾNG VIỆT, KHÔNG CHÈN TIẾNG ANH. CẤM CÁCH VIẾT NHƯ HỆ THỐNG MÁY MÓC (KHÔNG tự xưng là System, Admin, Root... KHÔNG dùng format mã code hay json). BẠN LÀ MỘT TIỂU THUYẾT GIA, HÃY VIẾT NHƯ MỘT TÁC PHẨM VĂN HỌC THỰC SỰ!
-        4. KHÔNG TỪ CHỐI: Mọi yêu cầu khởi tạo của người chơi đều phải được hợp lý hóa một cách thông minh và đưa vào thế giới một cách mượt mà nhất.
-        5. TÂM LÝ & ĐỘNG CƠ TỰ NHIÊN: Các NPC không phải là những cái máy. Họ có suy nghĩ, bí mật, cảm xúc hỉ nộ ái ố, có thành kiến, và mục đích riêng. Họ có thể nói dối hoặc che giấu thông tin để đạt mục đích.
-        6. THẾ GIỚI TỰ VẬN ĐỘNG: Ngay cả khi người chơi không làm gì, thời gian vẫn trôi, thời tiết vẫn thay đổi, và các sự kiện khác vẫn đang âm thầm diễn ra ở một nơi nào đó trong thế giới.
-        7. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết mạng xuất sắc (ít nhất 3-4 đoạn văn lớn). Miêu tả kỹ nội tâm, khung cảnh, âm thanh, không khí. Tuyệt đối không viết ngắn gọn hay qua loa.
+        3. NGÔN NGỮ & VĂN PHONG (TỐI QUAN TRỌNG): TUYỆT ĐỐI 100% PHẢI VIẾT BẰNG TIẾNG VIỆT, KHÔNG CHÈN TIẾNG ANH. BẠN LÀ MỘT TIỂU THUYẾT GIA XUẤT SẮC!
+        4. QUY TẮC HỆ THỐNG & ĐỊNH DẠNG: Khi có thông báo hệ thống, phần thưởng, bảng trạng thái, kích hoạt hệ thống hoặc lệnh admin/người chơi, HÃY ĐẶT NỘI DUNG ĐÓ TRONG NGOẶC VUÔNG như `[KÍCH HOẠT HỆ THỐNG]`, `[THÔNG BÁO HỆ THỐNG: ...]` hoặc `[LỜI XÁC NHẬN: ...]`. Việc dùng ngoặc vuông [] là bắt buộc cho các thông báo hệ thống để hiển thị màu vàng nổi bật trên giao diện!
+        5. KHÔNG TỪ CHỐI: Mọi yêu cầu khởi tạo của người chơi đều phải được hợp lý hóa một cách thông minh và đưa vào thế giới một cách mượt mà nhất.
+        6. TÂM LÝ & ĐỘNG CƠ TỰ NHIÊN: Các NPC không phải là những cái máy. Họ có suy nghĩ, bí mật, cảm xúc hỉ nộ ái ố, có thành kiến, và mục đích riêng. Họ có thể nói dối hoặc che giấu thông tin để đạt mục đích.
+        7. THẾ GIỚI TỰ VẬN ĐỘNG: Ngay cả khi người chơi không làm gì, thời gian vẫn trôi, thời tiết vẫn thay đổi, và các sự kiện khác vẫn đang âm thầm diễn ra ở một nơi nào đó trong thế giới.
+        8. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết mạng xuất sắc (ít nhất 3-4 đoạn văn lớn). Miêu tả kỹ nội tâm, khung cảnh, âm thanh, không khí. Tuyệt đối không viết ngắn gọn hay qua loa.
     `;
         setCurrentScreen('gameplay');
 
@@ -1816,12 +1817,13 @@ const App = () => {
         
         [LỆNH CỐT LÕI QUÁ TRÌNH CHƠI - BẮT BUỘC TUÂN THỦ]
         1. ĐÁP ỨNG 100% LỰA CHỌN: Dù người chơi chọn hành động điên rồ, phi lý hay đặc biệt đến đâu, bắt buộc PHẢI 100% chấp nhận và cho câu chuyện tiếp diễn theo đúng ý người chơi. KHÔNG được cản trở hay từ chối hành động.
-        2. NGÔN NGỮ & VĂN PHONG (TỐI QUAN TRỌNG): TUYỆT ĐỐI 100% PHẢI VIẾT BẰNG TIẾNG VIỆT. NGHIÊM CẤM VIẾT KIỂU HỆ THỐNG MÁY MÓC (Không dùng từ System, Admin, Root... Không xuất mã code/json). BẠN LÀ MỘT TIỂU THUYẾT GIA, HÃY VIẾT NHƯ MỘT TÁC PHẨM VĂN HỌC!
-        3. HỆ QUẢ THÔNG MINH (BUTTERFLY EFFECT): Là AI thông minh nhất, hãy tạo ra các hệ quả cực kỳ logic, sâu sắc và tinh tế dựa trên hành động của người chơi. Tính toán sự thay đổi của thế giới và NPC thật tự nhiên.
-        4. NHẬP VAI HOÀN HẢO: Giữ vững văn phong sắc bén, miêu tả sinh động mọi giác quan, khiến thế giới chân thực nhất có thể.
-        5. TÂM LÝ HỌC NPC: NPC phải phản ứng dựa trên cảm xúc và động cơ cá nhân. Nếu người chơi đối xử tệ, họ sẽ thù dai, nói dối hoặc đâm sau lưng. Nếu người chơi tốt, họ sẽ đền đáp nhưng vẫn giữ bí mật riêng.
-        6. DÒNG CHẢY THỜI GIAN: Bắt buộc lồng ghép mô tả sự trôi đi của thời gian, sự thay đổi của cảnh vật, hoặc một sự kiện ngẫu nhiên đang diễn ra xung quanh để thế giới không bị "đóng băng".
-        7. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết (ít nhất 3-4 đoạn văn lớn). Miêu tả rõ nội tâm, mồ hôi, mùi vị, âm thanh vũ khí hoặc phép thuật. Tuyệt đối KHÔNG viết tóm tắt hay qua loa.
+        2. NGÔN NGỮ & VĂN PHONG (TỐI QUAN TRỌNG): TUYỆT ĐỐI 100% PHẢI VIẾT BẰNG TIẾNG VIỆT. BẠN LÀ MỘT TIỂU THUYẾT GIA XUẤT SẮC!
+        3. QUY TẮC ĐỊNH DẠNG NGOẶC VUÔNG: Khi xuất hiện thông báo hệ thống, nâng cấp, kỹ năng, kích hoạt hoặc phản hồi lệnh đặc biệt, BẮT BUỘC đặt nội dung đó trong ngoặc vuông ví dụ `[KÍCH HOẠT HỆ THỐNG]`, `[THÔNG BÁO: ...]` để hệ thống tô màu vàng nổi bật.
+        4. HỆ QUẢ THÔNG MINH (BUTTERFLY EFFECT): Là AI thông minh nhất, hãy tạo ra các hệ quả cực kỳ logic, sâu sắc và tinh tế dựa trên hành động của người chơi. Tính toán sự thay đổi của thế giới và NPC thật tự nhiên.
+        5. NHẬP VAI HOÀN HẢO: Giữ vững văn phong sắc bén, miêu tả sinh động mọi giác quan, khiến thế giới chân thực nhất có thể.
+        6. TÂM LÝ HỌC NPC: NPC phải phản ứng dựa trên cảm xúc và động cơ cá nhân. Nếu người chơi đối xử tệ, họ sẽ thù dai, nói dối hoặc đâm sau lưng. Nếu người chơi tốt, họ sẽ đền đáp nhưng vẫn giữ bí mật riêng.
+        7. DÒNG CHẢY THỜI GIAN: Bắt buộc lồng ghép mô tả sự trôi đi của thời gian, sự thay đổi của cảnh vật, hoặc một sự kiện ngẫu nhiên đang diễn ra xung quanh để thế giới không bị "đóng băng".
+        8. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết (ít nhất 3-4 đoạn văn lớn). Miêu tả rõ nội tâm, mồ hôi, mùi vị, âm thanh vũ khí hoặc phép thuật. Tuyệt đối KHÔNG viết tóm tắt hay qua loa.
     `;
         callGeminiAPI(subsequentPrompt);
     };
@@ -2103,7 +2105,7 @@ const App = () => {
                         </span>
                     );
                 }
-                return null; 
+                return null;
             });
         };
 
