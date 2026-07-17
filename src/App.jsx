@@ -1783,6 +1783,7 @@ const App = () => {
         6. TÂM LÝ & ĐỘNG CƠ TỰ NHIÊN: Các NPC không phải là những cái máy. Họ có suy nghĩ, bí mật, cảm xúc hỉ nộ ái ố, có thành kiến, và mục đích riêng. Họ có thể nói dối hoặc che giấu thông tin để đạt mục đích.
         7. THẾ GIỚI TỰ VẬN ĐỘNG: Ngay cả khi người chơi không làm gì, thời gian vẫn trôi, thời tiết vẫn thay đổi, và các sự kiện khác vẫn đang âm thầm diễn ra ở một nơi nào đó trong thế giới.
         8. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết mạng xuất sắc (ít nhất 3-4 đoạn văn lớn). Miêu tả kỹ nội tâm, khung cảnh, âm thanh, không khí. Tuyệt đối không viết ngắn gọn hay qua loa.
+        9. DẪN CHUYỆN TỰ NHIÊN (KHÔNG PHÁ VỠ BỨC TƯỜNG THỨ 4): Sơ lược tiểu sử/yếu tố người chơi nhập là CHỈ HƯỚNG DÀNH CHO GAME MASTER. Nhân vật chính lúc bắt đầu KHÔNG BIẾT VÀ KHÔNG TỰ ĐOÁN ĐƯỢC những từ như "Xuyên không", "Hệ thống". Hãy để sự kiện thức tỉnh diễn ra tự nhiên (ví dụ: một luồng sáng/âm thanh lạ bất ngờ vang lên trong đầu `[THÔNG BÁO HỆ THỐNG: KÍCH HOẠT...]`), khiến nhân vật ngơ ngác phản ứng lại một cách chân thực nhất!
     `;
         setCurrentScreen('gameplay');
 
