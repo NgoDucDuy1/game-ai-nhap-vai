@@ -1151,7 +1151,7 @@ const App = () => {
         setApiKeyStatus({ status: 'Đang kiểm tra...', message: 'Vui lòng đợi.', color: 'text-blue-500' });
 
         const payload = {
-            model: "google/gemini-2.5-flash",
+            model: "google/gemini-2.5-flash-lite",
             messages: [{ role: "user", content: "Xin chào! Đây là một bài kiểm tra kết nối." }]
         };
         const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
@@ -1198,7 +1198,7 @@ const App = () => {
             return null;
         }
 
-        const PRIMARY_MODEL = "google/gemini-2.5-flash";
+        const PRIMARY_MODEL = "google/gemini-2.5-flash-lite";
         const FALLBACK_MODEL = "openrouter/auto";
 
         const payload = {
@@ -1662,7 +1662,7 @@ Khi có thay đổi, CHÈN các thẻ ẩn (người đọc không thấy, hệ 
             }))
         ];
 
-        const PRIMARY_MODEL = "google/gemini-2.5-flash";
+        const PRIMARY_MODEL = "google/gemini-2.5-flash-lite";
         const FALLBACK_MODEL = "openrouter/auto";
 
         const payload = {
