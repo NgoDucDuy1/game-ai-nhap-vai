@@ -1150,6 +1150,7 @@ const App = () => {
 
         const payload = {
             model: "google/gemini-2.5-flash-lite",
+            max_tokens: 4096,
             messages: [{ role: "user", content: "Xin chào! Đây là một bài kiểm tra kết nối." }]
         };
         const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
@@ -1201,6 +1202,7 @@ const App = () => {
 
         const payload = {
             model: "google/gemini-2.5-flash-lite",
+            max_tokens: 4096,
             messages: [{ role: "user", content: promptText }]
         };
 
@@ -1611,6 +1613,7 @@ THẺ CẬP NHẬT ẨN (ĐẶT Ở CUỐI PHẢN HỒI)
 
         const payload = {
             model: "google/gemini-2.5-flash-lite",
+            max_tokens: 4096,
             messages: openAiMessages
         };
 
