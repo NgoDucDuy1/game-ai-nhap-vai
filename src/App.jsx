@@ -1652,10 +1652,12 @@ Khi có thay đổi, CHÈN các thẻ ẩn (người đọc không thấy, hệ 
             currentChatHistory = currentChatHistory.slice(currentChatHistory.length - MAX_HISTORY_LENGTH);
         }
 
-        // Tạo system message tách biệt + chat history
-        const systemMsg = { role: "system", content: buildSystemMessage() };
+        // Tạo system instruction như user message đầu tiên (flash-lite không hỗ trợ system role tốt)
+        const systemInstruction = { role: "user", content: `[HƯỚNG DẪN HỆ THỐNG - BẮT BUỘC TUÂN THỦ TOÀN BỘ NỘI DUNG SAU]\n\n${buildSystemMessage()}\n\n[KẾT THÚC HƯỚNG DẪN HỆ THỐNG]` };
+        const systemAck = { role: "assistant", content: "Đã hiểu toàn bộ hướng dẫn. Tôi sẽ tuân thủ tuyệt đối mọi quy tắc về văn phong, hệ thống ngoặc vuông [...], và vai trò Game Master. Sẵn sàng bắt đầu." };
         const openAiMessages = [
-            systemMsg,
+            systemInstruction,
+            systemAck,
             ...currentChatHistory.map(msg => ({
                 role: msg.role === 'model' ? 'assistant' : msg.role,
                 content: msg.parts[0].text
