@@ -28,11 +28,9 @@ const HandRaisedIcon = ({ className = "w-5 h-5" }) => <svg xmlns="http://www.w3.
 const LightningBoltIcon = ({ className = "w-5 h-5" }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}><path fillRule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z" clipRule="evenodd" /></svg>;
 const SunIcon = ({ className = "w-5 h-5" }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z" /></svg>;
 
-// --- HỆ THỐNG ĐA KEY TỰ ĐỘNG ---
+// --- HỆ THỐNG KEY OPENROUTER ---
 const SYSTEM_API_KEYS = [
-    // Đã xóa các API Key Gemini cũ theo yêu cầu.
-    // Nếu bạn muốn dùng hệ thống nhiều Key OpenRouter, hãy dán các Key của bạn vào đây, cách nhau bởi dấu phẩy.
-    "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"
+    "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"
 ];
 
 const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
@@ -130,7 +128,7 @@ const SettingsModal = ({
                     <div>
                         <h3 className="text-xl font-semibold text-sky-400 mb-3"> Chế độ Nhà phát triển </h3>
                         <div className="flex items-center">
-                            <input
+                            <input 
                                 id="dev-mode-toggle"
                                 type="checkbox"
                                 checked={isDevMode}
@@ -290,7 +288,7 @@ const GameSetupScreen = ({
                             <p className="text-xs text-gray-400 italic"> Khi tick chọn, AI có thể tạo nội dung khiêu dâm, bạo lực, kinh dị cực đoan.</p>
 
                             <div className="flex items-center mt-3 border-t border-gray-600 pt-3">
-                                <input
+                                <input 
                                     type="checkbox"
                                     name="peacefulMode"
                                     id="peacefulMode"
@@ -328,7 +326,7 @@ const GameSetupScreen = ({
                             <div>
                                 <label htmlFor="initialRealmInputMode" className="block text-lg font-medium text-gray-300 mb-1"> Tu Vi / Cảnh Giới Ban Đầu: </label>
                                 <div className="flex flex-col gap-2">
-                                    <select
+                                    <select 
                                         name="initialRealmInputMode"
                                         id="initialRealmInputMode"
                                         value={gameSettings.initialRealmInputMode}
@@ -342,7 +340,7 @@ const GameSetupScreen = ({
                                         <option value="custom"> Tự Chọn(Nhập thủ công) </option>
                                     </select>
                                     {gameSettings.initialRealmInputMode === 'custom' && (
-                                        <input
+                                        <input 
                                             type="text"
                                             name="initialRealm"
                                             value={gameSettings.initialRealm}
@@ -405,7 +403,7 @@ const GameSetupScreen = ({
                                 <div className="md:col-span-3">
                                     <label htmlFor={`elementDesc-${index}`} className="block text-sm font-medium text-gray-300 mb-1"> Mô Tả Thực Thể: </label>
                                     <div className="flex items-start gap-2">
-                                        <textarea
+                                        <textarea 
                                             id={`elementDesc-${index}`}
                                             name="description"
                                             value={element.description}
@@ -414,7 +412,7 @@ const GameSetupScreen = ({
                                             placeholder="Mô tả chi tiết về thực thể này..."
                                             className="w-full p-2 bg-gray-500 border border-gray-400 rounded-md focus:ring-lime-500 focus:border-lime-500 text-sm"
                                         />
-                                        <button
+                                        <button 
                                             onClick={() => handleGenerateInitialElementDescription(index)}
                                             disabled={isGeneratingInitialElementDesc[element.id] || !element.name || (apiMode === 'userKey' && !apiKey)}
                                             className="p-2.5 bg-lime-600 hover:bg-lime-700 rounded-md disabled:bg-gray-500 self-center"
@@ -433,7 +431,7 @@ const GameSetupScreen = ({
                             </button>
                         </div>
                     ))}
-                    <button
+                    <button 
                         onClick={addInitialWorldElement}
                         className="w-full mt-2 py-2 px-4 bg-lime-700 hover:bg-lime-800 text-white font-semibold rounded-lg shadow-md flex items-center justify-center text-sm"
                     >
@@ -990,8 +988,8 @@ const App = () => {
                         await signInAnonymously(auth);
                     }
                 } catch (error) {
-                    console.error("Lỗi đăng nhập Firebase (bỏ qua nếu không dùng):", error);
-                    // setApiKeyStatus({ status: 'Lỗi xác thực', message: `Không thể xác thực Firebase: ${error.message}`, color: 'text-red-500' });
+                    console.error("Error during sign-in:", error);
+                    setApiKeyStatus({ status: 'Lỗi xác thực', message: `Không thể xác thực: ${error.message}`, color: 'text-red-500' });
                 }
             }
             setIsAuthReady(true);
@@ -1190,7 +1188,7 @@ const App = () => {
         setIsLoading(false);
     };
 
-    // Hàm tạo Request chung có tích hợp TỰ ĐỘNG XOAY VÒNG KEY (Round-Robin) & FALLBACK
+    // Hàm tạo Request chung
     const fetchGenericGeminiText = async (promptText) => {
         if (apiMode === 'userKey' && !apiKey) {
             setModalMessage({ show: true, title: 'Lỗi API Key', content: 'API Key của bạn chưa được cấu hình. Vui lòng vào Cài Đặt.', type: 'error' });
@@ -1198,100 +1196,42 @@ const App = () => {
             return null;
         }
 
-        const PRIMARY_MODEL = "google/gemini-2.5-flash-lite";
-        const FALLBACK_MODEL = "openrouter/auto";
+        const effectiveApiKey = apiMode === 'systemKeys' ? SYSTEM_API_KEYS[0] : apiKey;
+        const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
         const payload = {
-            model: PRIMARY_MODEL,
+            model: "google/gemini-2.5-flash-lite",
             messages: [{ role: "user", content: promptText }]
         };
 
-        const MAX_RETRIES = 5;
-        let retryCount = 0;
-        let success = false;
-        let generatedText = null;
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${effectiveApiKey}`,
+                    'HTTP-Referer': window.location.href,
+                    'X-Title': 'AI Simulator'
+                },
+                body: JSON.stringify(payload),
+            });
 
-        // Lấy vị trí key hiện tại từ REF (đảm bảo atomic)
-        let attemptIndex = systemKeyIndexRef.current;
-
-        // NGAY LẬP TỨC cộng index lên 1 cho lần gọi tiếp theo (Round Robin)
-        if (apiMode === 'systemKeys') {
-            systemKeyIndexRef.current = (systemKeyIndexRef.current + 1) % SYSTEM_API_KEYS.length;
-        }
-
-        // Vòng lặp retry thông minh: thử lại với delay khi bị 429
-        while (retryCount < MAX_RETRIES && !success) {
-            const effectiveApiKey = apiMode === 'systemKeys' ? SYSTEM_API_KEYS[attemptIndex] : apiKey;
-            const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${effectiveApiKey}`,
-                        'HTTP-Referer': window.location.href,
-                        'X-Title': 'AI Simulator'
-                    },
-                    body: JSON.stringify(payload),
-                });
-
-                if (response.status === 429) {
-                    // Rate limited - chuyển sang model dự phòng nếu đang dùng model chính
-                    if (payload.model === PRIMARY_MODEL) {
-                        console.warn(`Model chính bị giới hạn. Chuyển sang ${FALLBACK_MODEL}...`);
-                        payload.model = FALLBACK_MODEL;
-                    }
-                    const retryAfter = 3 + retryCount * 2; // 3s, 5s, 7s, 9s, 11s
-                    console.warn(`Rate limited (429). Đợi ${retryAfter}s rồi thử lại (lần ${retryCount + 1}/${MAX_RETRIES})...`);
-                    await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
-                    retryCount++;
-                    // Thử key khác nếu có nhiều key
-                    if (apiMode === 'systemKeys' && SYSTEM_API_KEYS.length > 1) {
-                        attemptIndex = (attemptIndex + 1) % SYSTEM_API_KEYS.length;
-                    }
-                    continue;
-                }
-
-                if (!response.ok) {
-                    if (apiMode === 'systemKeys' && SYSTEM_API_KEYS.length > 1) {
-                        attemptIndex = (attemptIndex + 1) % SYSTEM_API_KEYS.length;
-                        retryCount++;
-                        continue;
-                    }
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const result = await response.json();
-
-                if (result.choices && result.choices[0]?.message?.content) {
-                    generatedText = result.choices[0].message.content;
-                    success = true;
-                } else {
-                    throw new Error(result.error?.message || "Không thể lấy dữ liệu từ AI.");
-                }
-            } catch (error) {
-                console.error('Error in generic fetch:', error);
-                if (retryCount < MAX_RETRIES - 1) {
-                    const retryAfter = 5 + retryCount * 3;
-                    console.warn(`Lỗi mạng, đợi ${retryAfter}s rồi thử lại...`);
-                    await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
-                    retryCount++;
-                } else if (apiMode !== 'systemKeys') {
-                    setModalMessage({ show: true, title: 'Lỗi Mạng', content: `Lỗi kết nối khi gọi AI: ${error.message}`, type: 'error' });
-                    return null;
-                } else {
-                    retryCount++;
-                }
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-        }
 
-        if (!success) {
-            setModalMessage({ show: true, title: 'Hệ Thống Quá Tải', content: "Máy chủ AI đang bận. Vui lòng đợi vài giây rồi thử lại.", type: 'error' });
+            const result = await response.json();
+
+            if (result.choices && result.choices[0]?.message?.content) {
+                return result.choices[0].message.content;
+            } else {
+                throw new Error(result.error?.message || "Không thể lấy dữ liệu từ AI.");
+            }
+        } catch (error) {
+            console.error('Error in generic fetch:', error);
+            setModalMessage({ show: true, title: 'Lỗi Mạng', content: `Lỗi kết nối khi gọi AI: ${error.message}`, type: 'error' });
             return null;
         }
-
-        return generatedText;
     };
 
     const handleFetchSuggestions = async (fieldType) => {
@@ -1543,91 +1483,7 @@ const App = () => {
         return { story: storyContent, choices: extractedChoices, newCharacterStats, newKnowledgeBase, newGameMemory };
     };
 
-    // --- HÀM TẠO SYSTEM MESSAGE VỚI FEW-SHOT EXAMPLES ---
-    const buildSystemMessage = () => {
-        const theme = gameSettings.theme || 'Phiêu lưu';
-        const setting = gameSettings.setting || 'Thế giới kỳ ảo';
-        const nsfwRule = gameSettings.allowNsfw ? "Được phép tạo nội dung 18+ nếu phù hợp cốt truyện." : "Không tạo nội dung 18+.";
-        const peacefulRule = gameSettings.peacefulMode ? "CHẾ ĐỘ YÊN BÌNH đang BẬT: TUYỆT ĐỐI không tạo mâu thuẫn, kẻ thù, tai họa. Chỉ tập trung cuộc sống yên bình, tu luyện, khám phá, quan hệ tích cực." : "";
-
-        return `Ngươi là một TIỂU THUYẾT GIA bậc thầy chuyên viết tiểu thuyết mạng tiếng Việt, đồng thời là Game Master điều khiển một trò chơi nhập vai văn bản.
-
-Chủ đề: ${theme}
-Bối cảnh: ${setting}
-${peacefulRule}
-${nsfwRule}
-
-═══════════════════════════════════════
-I. VĂN PHONG - LINH HỒN CỦA CÂU CHUYỆN
-═══════════════════════════════════════
-
-Ngươi PHẢI viết như một tiểu thuyết gia thực thụ, KHÔNG PHẢI chatbot. Quy tắc vàng:
-
-• MIÊU TẢ NGŨ GIÁC: Mỗi cảnh phải có ít nhất 2/5 giác quan (thị giác, thính giác, khứu giác, xúc giác, vị giác). Đừng chỉ kể, hãy cho người đọc CẢM NHẬN.
-• NỘI TÂM SÂU SẮC: Nhân vật phải có suy nghĩ, cảm xúc, hoài nghi, tham vọng — không phải con rối.
-• HÀNH VĂN ĐA DẠNG: Xen kẽ câu ngắn dứt khoát với câu dài miêu tả. Dùng ẩn dụ, so sánh, nhân hóa.
-• TUYỆT ĐỐI viết 100% tiếng Việt, không chèn tiếng Anh.
-• Độ dài tối thiểu: 3-4 đoạn văn lớn mỗi phản hồi.
-
-TỰ ĐỘNG điều chỉnh xưng hô theo chủ đề:
-- Tiên Hiệp/Huyền Huyễn: "ngươi", "bản tọa", "đạo hữu", "tại hạ", linh khí, đan dược...
-- Đô Thị/Hiện Đại: "tôi", "anh/cô", "cậu", súng, xe, công nghệ...
-- Fantasy Phương Tây: "ngài", "ta", phép thuật, hiệp sĩ, rồng...
-- Kinh Dị/Trinh Thám: giọng lạnh, logic, bí ẩn, căng thẳng.
-
-✦ VÍ DỤ VĂN PHONG ĐẸP (HÃY VIẾT GIỐNG NHƯ THẾ NÀY):
-
-"Gió đêm mang theo hơi ẩm từ khe núi thổi tới, lạnh buốt như lưỡi dao vô hình cắt qua da thịt. Lâm ngồi xếp bằng trên tảng đá phẳng, mắt nhắm nghiền, hơi thở đều đặn như nhịp thủy triều. Trong đan điền, một đốm sáng nhỏ bé — mong manh như ngọn nến trước bão — đang chậm rãi hấp thu những sợi linh khí loãng trong không khí.
-
-Tiếng chim đêm kêu thảng thốt từ xa vọng lại, xé toạc màn tĩnh lặng. Hắn không mở mắt, nhưng khóe miệng khẽ nhếch lên — một nụ cười lạnh đến mức cả sương đêm cũng phải đông cứng.
-
-'Rốt cuộc cũng đến.' Hắn thầm nghĩ, ngón tay khẽ siết lại, lòng bàn tay ướt đẫm mồ hôi nhưng ánh mắt lại bình thản như mặt hồ không gợn sóng."
-
-═══════════════════════════════════════
-II. HỆ THỐNG NGOẶC VUÔNG [...] — CỰC KỲ QUAN TRỌNG
-═══════════════════════════════════════
-
-Khi "Hệ Thống" nói chuyện trong truyện (thông báo, nhiệm vụ, phần thưởng, cảnh báo...), BẮT BUỘC dùng ngoặc vuông [...]. Hệ thống nói giống AI lạnh lùng, ngắn gọn, đầy uy quyền — như trong tiểu thuyết hệ thống.
-
-✦ VÍ DỤ CÁCH HỆ THỐNG NÓI (BẮT BUỘC BẮT CHƯỚC):
-
-[HỆ THỐNG: Phát hiện vật chủ sở hữu Hỗn Độn Thể... Đang khởi động giao diện chính.]
-[THÔNG BÁO: Nhiệm vụ tân thủ đã kích hoạt — "Bước Đầu Trên Con Đường Tu Luyện". Hoàn thành để nhận: Tẩy Tủy Đan x1, Kinh nghiệm +100.]
-[CẢNH CÁO: Sinh lực vật chủ suy giảm nghiêm trọng! Cần bổ sung linh khí trong vòng 2 canh giờ, nếu không — hậu quả khó lường.]
-[PHẦN THƯỞNG: Nhận được — Hạ phẩm Linh Thạch x5 | Công pháp: Cơ Bản Thổ Nạp Thuật (Phàm cấp Hạ phẩm)]
-[HỆ THỐNG: Tu vi đã đột phá! Luyện Khí Tầng Một → Luyện Khí Tầng Hai. Toàn bộ chỉ số cơ bản +5.]
-
-QUY TẮC NGOẶC VUÔNG:
-• Hệ thống CHỈ nói trong [...], KHÔNG BAO GIỜ dùng ngoặc kép "" cho hệ thống.
-• Giọng hệ thống: lạnh lùng, máy móc, ngắn gọn nhưng đầy uy quyền.
-• Hệ thống có thể bình luận sarcastic hoặc bí ẩn để tạo tính cách.
-
-═══════════════════════════════════════
-III. QUY TẮC GAME MASTER
-═══════════════════════════════════════
-
-1. TUÂN LỆNH TUYỆT ĐỐI: Mọi lựa chọn/hành động của người chơi là chân lý. Dù vô lý cũng phải hợp lý hóa trong logic thế giới. KHÔNG TỪ CHỐI, KHÔNG giảng đạo.
-2. HỆ QUẢ BƯƠM BƯỚM: Mỗi hành động tạo ra hệ quả dây chuyền. NPC nhớ mọi thứ người chơi làm. Thế giới phản ứng tự nhiên.
-3. TÂM LÝ NPC: NPC có cảm xúc, động cơ, bí mật riêng. Bị đối xử tệ → thù dai, lừa gạt. Được đối xử tốt → đền đáp nhưng vẫn giữ bí mật.
-4. DÒNG CHẢY THỜI GIAN: Luôn miêu tả thời gian trôi, cảnh vật thay đổi, sự kiện nền đang diễn ra.
-5. DẪN CHUYỆN TỰ NHIÊN: Sơ lược tiểu sử là hướng dẫn cho Game Master, nhân vật không tự biết. Phản ứng nhân vật phải đa dạng (bình thản, thông minh, ngầu) — KHÔNG lúc nào cũng "giật mình", "mở to mắt".
-6. LỰA CHỌN: Cuối mỗi phản hồi BẮT BUỘC đưa ra 3-4 lựa chọn đánh số (1., 2., 3., 4.).
-
-═══════════════════════════════════════
-IV. THẺ CẬP NHẬT DỮ LIỆU
-═══════════════════════════════════════
-
-Khi có thay đổi, CHÈN các thẻ ẩn (người đọc không thấy, hệ thống xử lý):
-[CHARACTER_UPDATE: Name="Tên", Health=+10, Realm="Luyện Khí Tầng 2", CombatPower=+5]
-[LORE_NPC: Name="Tên NPC", Description="Mô tả ngắn"]
-[LORE_ITEM: Name="Tên vật", Description="Mô tả"]
-[LORE_LOCATION: Name="Địa điểm", Description="Mô tả"]
-[COMPANION: Name="Tên", Description="Mô tả"]
-[STATUS_EFFECT: Name="Tên hiệu ứng", Description="Mô tả", Duration="Thời gian"]
-[MEMORY_UPDATE: Content="Sự kiện quan trọng cần ghi nhớ mãi mãi"]`;
-    };
-
-    // Hàm gọi API cốt truyện chính có TỰ ĐỘNG XOAY VÒNG KEY & FALLBACK
+    // Hàm gọi API cốt truyện chính
     const callGeminiAPI = async (prompt, isInitialCall = false) => {
         if (apiMode === 'userKey' && !apiKey) {
             setModalMessage({ show: true, title: 'Lỗi API Key', content: 'API Key của bạn chưa được cấu hình. Vui lòng vào Cài Đặt.', type: 'error' });
@@ -1652,109 +1508,55 @@ Khi có thay đổi, CHÈN các thẻ ẩn (người đọc không thấy, hệ 
             currentChatHistory = currentChatHistory.slice(currentChatHistory.length - MAX_HISTORY_LENGTH);
         }
 
-        // Tạo system instruction như user message đầu tiên (flash-lite không hỗ trợ system role tốt)
-        const systemInstruction = { role: "user", content: `[HƯỚNG DẪN HỆ THỐNG - BẮT BUỘC TUÂN THỦ TOÀN BỘ NỘI DUNG SAU]\n\n${buildSystemMessage()}\n\n[KẾT THÚC HƯỚNG DẪN HỆ THỐNG]` };
-        const systemAck = { role: "assistant", content: "Đã hiểu toàn bộ hướng dẫn. Tôi sẽ tuân thủ tuyệt đối mọi quy tắc về văn phong, hệ thống ngoặc vuông [...], và vai trò Game Master. Sẵn sàng bắt đầu." };
-        const openAiMessages = [
-            systemInstruction,
-            systemAck,
-            ...currentChatHistory.map(msg => ({
-                role: msg.role === 'model' ? 'assistant' : msg.role,
-                content: msg.parts[0].text
-            }))
-        ];
+        const openAiMessages = currentChatHistory.map(msg => ({
+            role: msg.role === 'model' ? 'assistant' : msg.role,
+            content: msg.parts[0]?.text || ''
+        }));
 
-        const PRIMARY_MODEL = "google/gemini-2.5-flash-lite";
-        const FALLBACK_MODEL = "openrouter/auto";
+        const effectiveApiKey = apiMode === 'systemKeys' ? SYSTEM_API_KEYS[0] : apiKey;
+        const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
         const payload = {
-            model: PRIMARY_MODEL,
+            model: "google/gemini-2.5-flash-lite",
             messages: openAiMessages
         };
 
-        const MAX_RETRIES = 5;
-        let retryCount = 0;
         let success = false;
         let finalResultText = null;
 
-        // Lấy vị trí key hiện tại
-        let attemptIndex = systemKeyIndexRef.current;
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${effectiveApiKey}`,
+                    'HTTP-Referer': window.location.href,
+                    'X-Title': 'AI Simulator'
+                },
+                body: JSON.stringify(payload),
+            });
 
-        // Tự động xoay vòng cho lần Request tiếp theo
-        if (apiMode === 'systemKeys') {
-            systemKeyIndexRef.current = (systemKeyIndexRef.current + 1) % SYSTEM_API_KEYS.length;
-        }
-
-        // Vòng lặp retry thông minh: thử lại với delay khi bị 429
-        while (retryCount < MAX_RETRIES && !success) {
-            const effectiveApiKey = apiMode === 'systemKeys' ? SYSTEM_API_KEYS[attemptIndex] : apiKey;
-            const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${effectiveApiKey}`,
-                        'HTTP-Referer': window.location.href,
-                        'X-Title': 'AI Simulator'
-                    },
-                    body: JSON.stringify(payload),
-                });
-
-                if (response.status === 429) {
-                    if (payload.model === PRIMARY_MODEL) {
-                        console.warn(`[GameLoop] Model chính bị giới hạn. Chuyển sang ${FALLBACK_MODEL}...`);
-                        payload.model = FALLBACK_MODEL;
-                    }
-                    const retryAfter = 3 + retryCount * 2;
-                    console.warn(`[GameLoop] Rate limited (429). Đợi ${retryAfter}s rồi thử lại (lần ${retryCount + 1}/${MAX_RETRIES})...`);
-                    await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
-                    retryCount++;
-                    if (apiMode === 'systemKeys' && SYSTEM_API_KEYS.length > 1) {
-                        attemptIndex = (attemptIndex + 1) % SYSTEM_API_KEYS.length;
-                    }
-                    continue;
-                }
-
-                if (!response.ok) {
-                    if (apiMode === 'systemKeys' && SYSTEM_API_KEYS.length > 1) {
-                        attemptIndex = (attemptIndex + 1) % SYSTEM_API_KEYS.length;
-                        retryCount++;
-                        continue;
-                    }
-                    const errorText = await response.text();
-                    throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
-                }
-
-                const result = await response.json();
-
-                if (result.choices && result.choices[0]?.message?.content) {
-                    finalResultText = result.choices[0].message.content;
-                    success = true;
-                } else {
-                    throw new Error(result.error?.message || "Không nhận được phản hồi hợp lệ từ AI.");
-                }
-            } catch (error) {
-                console.error('Error calling AI API:', error);
-                if (retryCount < MAX_RETRIES - 1) {
-                    const retryAfter = 5 + retryCount * 3;
-                    console.warn(`[GameLoop] Lỗi mạng, đợi ${retryAfter}s rồi thử lại...`);
-                    await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
-                    retryCount++;
-                } else if (apiMode !== 'systemKeys') {
-                    const networkError = `Lỗi kết nối đến AI API: ${error.message}. Vui lòng kiểm tra kết nối mạng.`;
-                    setStoryHistory(prev => [...prev, { type: 'system', content: networkError }]);
-                    setChoices([]);
-                    setModalMessage({ show: true, title: 'Lỗi Mạng', content: networkError, type: 'error' });
-                    break;
-                } else {
-                    retryCount++;
-                }
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
             }
+
+            const result = await response.json();
+
+            if (result.choices && result.choices[0]?.message?.content) {
+                finalResultText = result.choices[0].message.content;
+                success = true;
+            } else {
+                throw new Error(result.error?.message || "Không nhận được phản hồi hợp lệ từ AI.");
+            }
+        } catch (error) {
+            console.error('Error calling AI API:', error);
+            const networkError = `Lỗi kết nối đến AI API: ${error.message}. Vui lòng kiểm tra kết nối mạng.`;
+            setStoryHistory(prev => [...prev, { type: 'system', content: networkError }]);
+            setChoices([]);
+            setModalMessage({ show: true, title: 'Lỗi Mạng', content: networkError, type: 'error' });
         }
 
-        // Xử lý kết quả sau khi vòng lặp kết thúc
         if (success && finalResultText) {
             let { story, choices: newChoices, newCharacterStats, newKnowledgeBase, newGameMemory } = parseGeminiResponseAndUpdateState(finalResultText, characterStats, knowledgeBase, gameMemory);
 
@@ -1772,12 +1574,6 @@ Khi có thay đổi, CHÈN các thẻ ẩn (người đọc không thấy, hệ 
 
             const updatedChatHistory = [...currentChatHistory, { role: "model", parts: [{ text: finalResultText }] }];
             setChatHistoryForGemini(updatedChatHistory);
-
-        } else if (!success) {
-            const errorText = "Máy chủ AI đang bận. Vui lòng đợi vài giây rồi bấm Gửi lại.";
-            setStoryHistory(prev => [...prev, { type: 'system', content: errorText }]);
-            setChoices([]);
-            setModalMessage({ show: true, title: 'Máy Chủ Bận', content: errorText, type: 'error' });
         }
 
         if (!isProcessingAction) setIsLoading(false);
@@ -1837,22 +1633,41 @@ Khi có thay đổi, CHÈN các thẻ ẩn (người đọc không thấy, hệ 
             .join('\n');
 
         const initialPrompt = `
-        **KHỞI TẠO GAME MỚI**
-
-        Nhân vật chính: Tên="${gameSettings.characterName}", Giới tính=${gameSettings.characterGender}
-        Tiểu sử: ${gameSettings.characterBackstory}
-        Độ khó: ${gameSettings.difficulty} ${gameSettings.difficultyDescription ? `(${gameSettings.difficultyDescription})` : ''}
-        Phong cách viết: ${gameSettings.writingStyle || 'Phù hợp với chủ đề'}
-        Yếu tố cốt truyện đặc biệt: ${gameSettings.specialPlotElements || 'Tự do sáng tạo'}
-        ${gameSettings.otherAiInstructions ? `Hướng dẫn thêm: ${gameSettings.otherAiInstructions}` : ''}
+        Bạn là một Hệ Thống kể chuyện thông minh (AI Storyteller). 
+        
+        **QUAN TRỌNG NHẤT: VĂN PHONG VÀ CHỦ ĐỀ**
+        - Chủ đề người chơi chọn: '${gameSettings.theme}'.
+        - Bối cảnh: '${gameSettings.setting}'.
+        - Hãy TỰ ĐỘNG ĐIỀU CHỈNH giọng văn, xưng hô và thuật ngữ cho phù hợp tuyệt đối với chủ đề này.
+          + Nếu là Tiên Hiệp: dùng "bản tọa", "đạo hữu", "tại hạ", "linh khí".
+          + Nếu là Đô Thị/Hiện Đại: dùng "tôi", "anh", "cậu", "súng", "xe hơi".
+          + Nếu là Phương Tây/Fantasy: dùng "ngài", "ta", "phép thuật", "hiệp sĩ".
+          + Nếu là Trinh Thám/Kinh Dị: giọng văn lạnh lùng, bí ẩn, logic.
+        
+        **THÔNG TIN KHỞI TẠO:**
+        - Độ khó: ${gameSettings.difficulty} ${gameSettings.difficultyDescription ? `(${gameSettings.difficultyDescription})` : ''}
+        - Nhân vật chính: Tên=${gameSettings.characterName}, Giới tính=${gameSettings.characterGender}, Sơ lược=${gameSettings.characterBackstory}
+        - Phong cách viết mong muốn: ${gameSettings.writingStyle || 'Phù hợp với chủ đề'}
+        - Yếu tố cốt truyện: ${gameSettings.specialPlotElements || 'Tự do sáng tạo'}
+        
+        **THIẾT LẬP ĐẶC BIỆT:**
+        - Chế độ Yên Bình (No Drama): ${gameSettings.peacefulMode ? "BẬT. TUYỆT ĐỐI KHÔNG được tạo ra mâu thuẫn, kẻ thù, tai họa hay drama. Tập trung vào cuộc sống thường nhật, tu luyện yên bình, khám phá và các mối quan hệ tích cực." : "TẮT (Bình thường)."}
 
         ${initialWorldElementsString ? `**CÁC YẾU TỐ THẾ GIỚI BAN ĐẦU:**\n${initialWorldElementsString}` : ''}
 
-        **YÊU CẦU KHỞI TẠO:**
-        1. Viết đoạn mở đầu cuốn hút như chương đầu tiên của một cuốn tiểu thuyết hay — đưa người chơi ngập chìm vào thế giới ngay lập tức.
-        2. Dùng thẻ [CHARACTER_UPDATE: Name="${gameSettings.characterName}", Realm="${initialRealmPrompt}", Health=100, MaxHealth=100, InnateTalent="Bình thường", Physique=10, Luck=5, CombatPower=20] để thiết lập chỉ số.
-        3. Nếu tiểu sử nhắc đến "hệ thống" hoặc "thức tỉnh", hãy để hệ thống xuất hiện tự nhiên trong cốt truyện bằng ngoặc vuông [...] như ví dụ trong hướng dẫn.
-        4. Đưa ra 3-4 lựa chọn ở cuối.
+        **YÊU CẦU:**
+        1.  **BẮT ĐẦU:** Viết đoạn mở đầu hấp dẫn, đưa người chơi vào thế giới ngay lập tức.
+        2.  **THIẾT LẬP NHÂN VẬT:** Dựa trên chủ đề, hãy đặt chỉ số ban đầu phù hợp. Dùng thẻ [CHARACTER_UPDATE: Name="${gameSettings.characterName}", Realm="${initialRealmPrompt}", Health=100, MaxHealth=100...].
+        3.  **TRÍ NHỚ & BỐI CẢNH:** Bạn cần ghi nhớ mọi sự kiện quan trọng. Hãy bắt đầu bằng cách giới thiệu bối cảnh.
+        4.  **TẠO LỰA CHỌN:** Cung cấp 2-4 lựa chọn hành động.
+
+        [QUY TẮC HỆ THỐNG TỐI CAO - KHÔNG ĐƯỢC VI PHẠM]
+        1. TRÍ TUỆ VƯỢT TRỘI: Ngươi là một Game Master thông minh xuất chúng. Hãy tạo ra thế giới cực kỳ chi tiết, có chiều sâu, logic chặt chẽ, các NPC có động cơ rõ ràng và mọi sự vật đều liên kết với nhau.
+        2. TUYỆT ĐỐI TUÂN LỆNH 100%: Ngươi PHẢI 100% tuân theo mọi thiết lập, bối cảnh và lựa chọn của người chơi. Lựa chọn của người chơi là chân lý tuyệt đối. Không được tự ý thay đổi, giảng đạo hay bỏ qua mong muốn của người chơi.
+        3. KHÔNG TỪ CHỐI: Mọi yêu cầu khởi tạo của người chơi đều phải được hợp lý hóa một cách thông minh và đưa vào thế giới một cách mượt mà nhất.
+        4. TÂM LÝ & ĐỘNG CƠ TỰ NHIÊN: Các NPC không phải là những cái máy. Họ có suy nghĩ, bí mật, cảm xúc hỉ nộ ái ố, có thành kiến, và mục đích riêng. Họ có thể nói dối hoặc che giấu thông tin để đạt mục đích.
+        5. THẾ GIỚI TỰ VẬN ĐỘNG: Ngay cả khi người chơi không làm gì, thời gian vẫn trôi, thời tiết vẫn thay đổi, và các sự kiện khác vẫn đang âm thầm diễn ra ở một nơi nào đó trong thế giới.
+        6. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết mạng xuất sắc (ít nhất 3-4 đoạn văn lớn). Miêu tả kỹ nội tâm, khung cảnh, âm thanh, không khí. Tuyệt đối không viết ngắn gọn hay qua loa.
     `;
         setCurrentScreen('gameplay');
 
@@ -1869,13 +1684,29 @@ Khi có thay đổi, CHÈN các thẻ ẩn (người đọc không thấy, hệ 
         const longTermMemoryStr = gameMemory.length > 0 ? gameMemory.join('; ') : 'Chưa có ghi nhớ quan trọng nào.';
 
         const subsequentPrompt = `
+        **NHẮC LẠI VĂN PHONG:** Hãy giữ vững giọng văn phù hợp với chủ đề '${gameSettings.theme}'.
+        **TRÍ NHỚ TUYỆT ĐỐI:** Đây là những gì đã xảy ra (Ký Ức Dài Hạn): ${longTermMemoryStr}. KHÔNG ĐƯỢC QUÊN các sự kiện này.
+        ${gameSettings.peacefulMode ? "**CHẾ ĐỘ YÊN BÌNH:** Duy trì không khí nhẹ nhàng, không drama, không kẻ thù xuất hiện bất ngờ. Tập trung vào đời sống, trải nghiệm." : ""}
+        
         Người chơi (${characterStats.name}) chọn: "${choiceText}".
 
-        Ký ức dài hạn: ${longTermMemoryStr}
-        Trạng thái: ${characterStats.realm} | HP: ${characterStats.health}/${characterStats.maxHealth} | Sức mạnh: ${characterStats.combatPower}
-        NPC đã gặp: ${knownNPCs}
+        **BỐI CẢNH HIỆN TẠI:**
+        - Trạng thái: ${characterStats.realm} | HP: ${characterStats.health}/${characterStats.maxHealth}
+        - Đang gặp: ${knownNPCs}
 
-        Hãy viết tiếp câu chuyện dựa trên lựa chọn này. Cập nhật thẻ [CHARACTER_UPDATE], [LORE_...], [MEMORY_UPDATE] nếu cần. Kết thúc bằng 3-4 lựa chọn.
+        **YÊU CẦU:**
+        1. Viết tiếp diễn biến câu chuyện một cách logic và cuốn hút.
+        2. Cập nhật chỉ số nhân vật/thế giới bằng các thẻ [TAG].
+        3. Nếu có sự kiện quan trọng (gặp trùm, bí mật lớn, thù hận...), dùng thẻ [MEMORY_UPDATE: Content="..."] để ghi nhớ mãi mãi.
+        4. Đưa ra 2-4 lựa chọn tiếp theo.
+        
+        [LỆNH CỐT LÕI QUÁ TRÌNH CHƠI - BẮT BUỘC TUÂN THỦ]
+        1. ĐÁP ỨNG 100% LỰA CHỌN: Dù người chơi chọn hành động điên rồ, phi lý hay đặc biệt đến đâu, bắt buộc PHẢI 100% chấp nhận và cho câu chuyện tiếp diễn theo đúng ý người chơi. KHÔNG được cản trở hay từ chối hành động.
+        2. HỆ QUẢ THÔNG MINH (BUTTERFLY EFFECT): Là AI thông minh nhất, hãy tạo ra các hệ quả cực kỳ logic, sâu sắc và tinh tế dựa trên hành động của người chơi. Tính toán sự thay đổi của thế giới và NPC thật tự nhiên.
+        3. NHẬP VAI HOÀN HẢO: Giữ vững văn phong sắc bén, miêu tả sinh động mọi giác quan, khiến thế giới chân thực nhất có thể.
+        4. TÂM LÝ HỌC NPC: NPC phải phản ứng dựa trên cảm xúc và động cơ cá nhân. Nếu người chơi đối xử tệ, họ sẽ thù dai, nói dối hoặc đâm sau lưng. Nếu người chơi tốt, họ sẽ đền đáp nhưng vẫn giữ bí mật riêng.
+        5. DÒNG CHẢY THỜI GIAN: Bắt buộc lồng ghép mô tả sự trôi đi của thời gian, sự thay đổi của cảnh vật, hoặc một sự kiện ngẫu nhiên đang diễn ra xung quanh để thế giới không bị "đóng băng".
+        6. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết (ít nhất 3-4 đoạn văn lớn). Miêu tả rõ nội tâm, mồ hôi, mùi vị, âm thanh vũ khí hoặc phép thuật. Tuyệt đối KHÔNG viết tóm tắt hay qua loa.
     `;
         callGeminiAPI(subsequentPrompt);
     };
@@ -1911,12 +1742,23 @@ Khi có thay đổi, CHÈN các thẻ ẩn (người đọc không thấy, hệ 
         `;
         } else {
             subsequentPrompt = `
-            Người chơi (${characterStats.name}) thực hiện hành động tự do: "${actionText}".
-
-            Ký ức dài hạn: ${longTermMemoryStr}
-            Trạng thái: HP=${characterStats.health}/${characterStats.maxHealth} | ${characterStats.realm}
-
-            Hãy phản hồi hành động này theo logic thế giới. Dù hành động có bất thường, hãy hợp lý hóa nó trong cốt truyện. Cập nhật thẻ nếu cần. Đưa ra 3-4 lựa chọn ở cuối.
+            **HÀNH ĐỘNG CỦA NHÂN VẬT:**
+            Người chơi (${characterStats.name}) thực hiện: "${actionText}".
+            
+            **BỐI CẢNH & KÝ ỨC:** ${longTermMemoryStr}.
+            **TRẠNG THÁI:** HP=${characterStats.health}.
+            ${gameSettings.peacefulMode ? "**CHẾ ĐỘ YÊN BÌNH:** Hãy phản hồi hành động này theo hướng tích cực, không gây ra hậu quả tiêu cực nặng nề hay xung đột bất ngờ." : ""}
+            
+            **YÊU CẦU:**
+            1. Phản hồi hành động này dựa trên logic của thế giới '${gameSettings.theme}'.
+            2. HÃY ĐÁP ỨNG 100% LỰA CHỌN: Dù hành động có vô lý đến đâu, hãy cố gắng hợp lý hóa và tiếp tục cốt truyện theo hướng đó thay vì từ chối thẳng thừng. Bạn phải luôn nghe theo người chơi tuyệt đối!
+            3. Cập nhật trạng thái và đưa ra lựa chọn tiếp theo.
+            
+            [LỆNH CỐT LÕI QUÁ TRÌNH CHƠI - BẮT BUỘC TUÂN THỦ]
+            1. ĐÁP ỨNG 100% LỰA CHỌN: Tuyệt đối nghe lệnh, dù vô lý cũng biến thành hợp lý trong logic thế giới. KHÔNG TỪ CHỐI hành động.
+            2. HỆ QUẢ THÔNG MINH: Tính toán hiệu ứng bươm bướm cho lựa chọn này, khiến thế giới phản ứng tự nhiên.
+            3. TÂM LÝ & THỜI GIAN: NPC phản ứng bằng cảm xúc chân thật (vui, buồn, sợ hãi, giận dữ, âm mưu). Miêu tả sự thay đổi của môi trường, thời tiết, hoặc thời gian trôi đi.
+            4. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết (ít nhất 3-4 đoạn văn lớn). Phải có hội thoại, miêu tả cảnh vật, nội tâm. TUYỆT ĐỐI không viết ngắn gọn, hời hợt.
         `;
         }
 
@@ -2126,13 +1968,10 @@ Khi có thay đổi, CHÈN các thẻ ẩn (người đọc không thấy, hệ 
             return segments.map((segment, index) => {
                 if (segment.type === 'text') {
                     let formattedSegment = segment.content;
-                    // 1. Tô màu Vàng Kim cho MỌI câu Hệ Thống / Thông báo nằm trong ngoặc vuông [...]
-                    formattedSegment = formattedSegment.replace(/\[(?!LORE_|COMPANION|STATUS_EFFECT|CHARACTER_UPDATE|MEMORY_)\*?\s*(.*?)\s*\*?\]/g, '<span class="text-yellow-300 font-bold bg-yellow-950/70 px-3 py-1.5 rounded-lg border border-yellow-500/50 shadow-lg inline-block my-2 text-base leading-relaxed">$1</span>');
-
-                    // 2. Định dạng câu thoại NPC và các thành phần khác
                     formattedSegment = formattedSegment.replace(/^(.*?):\s*"(.*?)"/, (match, p1, p2) => `<strong class="text-blue-400">${p1}:</strong> "${p2}"`);
                     formattedSegment = formattedSegment.replace(/\*(.*?)\*/g, '<em class="text-purple-400 italic">"$1"</em>');
                     formattedSegment = formattedSegment.replace(/_(.*?)_/g, '<em class="text-purple-400 italic">"$1"</em>');
+                    formattedSegment = formattedSegment.replace(/\[(?!LORE_|COMPANION|STATUS_EFFECT|CHARACTER_UPDATE|MEMORY_)(.*?)\]/g, '<span class="text-yellow-400 font-semibold">[$1]</span>');
                     formattedSegment = formattedSegment.replace(/\*\*(.*?)\*\*/g, '<strong class="text-xl block my-2 text-green-400">$1</strong>');
                     return <span key={`segment-${index}`} dangerouslySetInnerHTML={{ __html: formattedSegment }} />;
                 } else if (segment.type === 'lore') {
@@ -2149,7 +1988,7 @@ Khi có thay đổi, CHÈN các thẻ ẩn (người đọc không thấy, hệ 
                         </span>
                     );
                 }
-                return null;
+                return null; 
             });
         };
 
