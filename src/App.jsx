@@ -2125,6 +2125,7 @@ Khi có thay đổi, CHÈN các thẻ ẩn (người đọc không thấy, hệ 
 
             return segments.map((segment, index) => {
                 if (segment.type === 'text') {
+                    let formattedSegment = segment.content;
                     // 1. Tô màu Vàng Kim cho MỌI câu Hệ Thống / Thông báo nằm trong ngoặc vuông [...]
                     formattedSegment = formattedSegment.replace(/\[(?!LORE_|COMPANION|STATUS_EFFECT|CHARACTER_UPDATE|MEMORY_)\*?\s*(.*?)\s*\*?\]/g, '<span class="text-yellow-300 font-bold bg-yellow-950/70 px-3 py-1.5 rounded-lg border border-yellow-500/50 shadow-lg inline-block my-2 text-base leading-relaxed">$1</span>');
 
