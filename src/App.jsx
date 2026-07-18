@@ -1151,7 +1151,7 @@ const App = () => {
         setApiKeyStatus({ status: 'Đang kiểm tra...', message: 'Vui lòng đợi.', color: 'text-blue-500' });
 
         const payload = {
-            model: "google/gemini-2.5-flash-lite",
+            model: "google/gemini-2.5-flash",
             messages: [{ role: "user", content: "Xin chào! Đây là một bài kiểm tra kết nối." }]
         };
         const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
@@ -1198,7 +1198,7 @@ const App = () => {
             return null;
         }
 
-        const PRIMARY_MODEL = "google/gemini-2.5-flash-lite";
+        const PRIMARY_MODEL = "google/gemini-2.5-flash";
         const FALLBACK_MODEL = "openrouter/auto";
 
         const payload = {
@@ -1543,6 +1543,90 @@ const App = () => {
         return { story: storyContent, choices: extractedChoices, newCharacterStats, newKnowledgeBase, newGameMemory };
     };
 
+    // --- HÀM TẠO SYSTEM MESSAGE VỚI FEW-SHOT EXAMPLES ---
+    const buildSystemMessage = () => {
+        const theme = gameSettings.theme || 'Phiêu lưu';
+        const setting = gameSettings.setting || 'Thế giới kỳ ảo';
+        const nsfwRule = gameSettings.allowNsfw ? "Được phép tạo nội dung 18+ nếu phù hợp cốt truyện." : "Không tạo nội dung 18+.";
+        const peacefulRule = gameSettings.peacefulMode ? "CHẾ ĐỘ YÊN BÌNH đang BẬT: TUYỆT ĐỐI không tạo mâu thuẫn, kẻ thù, tai họa. Chỉ tập trung cuộc sống yên bình, tu luyện, khám phá, quan hệ tích cực." : "";
+
+        return `Ngươi là một TIỂU THUYẾT GIA bậc thầy chuyên viết tiểu thuyết mạng tiếng Việt, đồng thời là Game Master điều khiển một trò chơi nhập vai văn bản.
+
+Chủ đề: ${theme}
+Bối cảnh: ${setting}
+${peacefulRule}
+${nsfwRule}
+
+═══════════════════════════════════════
+I. VĂN PHONG - LINH HỒN CỦA CÂU CHUYỆN
+═══════════════════════════════════════
+
+Ngươi PHẢI viết như một tiểu thuyết gia thực thụ, KHÔNG PHẢI chatbot. Quy tắc vàng:
+
+• MIÊU TẢ NGŨ GIÁC: Mỗi cảnh phải có ít nhất 2/5 giác quan (thị giác, thính giác, khứu giác, xúc giác, vị giác). Đừng chỉ kể, hãy cho người đọc CẢM NHẬN.
+• NỘI TÂM SÂU SẮC: Nhân vật phải có suy nghĩ, cảm xúc, hoài nghi, tham vọng — không phải con rối.
+• HÀNH VĂN ĐA DẠNG: Xen kẽ câu ngắn dứt khoát với câu dài miêu tả. Dùng ẩn dụ, so sánh, nhân hóa.
+• TUYỆT ĐỐI viết 100% tiếng Việt, không chèn tiếng Anh.
+• Độ dài tối thiểu: 3-4 đoạn văn lớn mỗi phản hồi.
+
+TỰ ĐỘNG điều chỉnh xưng hô theo chủ đề:
+- Tiên Hiệp/Huyền Huyễn: "ngươi", "bản tọa", "đạo hữu", "tại hạ", linh khí, đan dược...
+- Đô Thị/Hiện Đại: "tôi", "anh/cô", "cậu", súng, xe, công nghệ...
+- Fantasy Phương Tây: "ngài", "ta", phép thuật, hiệp sĩ, rồng...
+- Kinh Dị/Trinh Thám: giọng lạnh, logic, bí ẩn, căng thẳng.
+
+✦ VÍ DỤ VĂN PHONG ĐẸP (HÃY VIẾT GIỐNG NHƯ THẾ NÀY):
+
+"Gió đêm mang theo hơi ẩm từ khe núi thổi tới, lạnh buốt như lưỡi dao vô hình cắt qua da thịt. Lâm ngồi xếp bằng trên tảng đá phẳng, mắt nhắm nghiền, hơi thở đều đặn như nhịp thủy triều. Trong đan điền, một đốm sáng nhỏ bé — mong manh như ngọn nến trước bão — đang chậm rãi hấp thu những sợi linh khí loãng trong không khí.
+
+Tiếng chim đêm kêu thảng thốt từ xa vọng lại, xé toạc màn tĩnh lặng. Hắn không mở mắt, nhưng khóe miệng khẽ nhếch lên — một nụ cười lạnh đến mức cả sương đêm cũng phải đông cứng.
+
+'Rốt cuộc cũng đến.' Hắn thầm nghĩ, ngón tay khẽ siết lại, lòng bàn tay ướt đẫm mồ hôi nhưng ánh mắt lại bình thản như mặt hồ không gợn sóng."
+
+═══════════════════════════════════════
+II. HỆ THỐNG NGOẶC VUÔNG [...] — CỰC KỲ QUAN TRỌNG
+═══════════════════════════════════════
+
+Khi "Hệ Thống" nói chuyện trong truyện (thông báo, nhiệm vụ, phần thưởng, cảnh báo...), BẮT BUỘC dùng ngoặc vuông [...]. Hệ thống nói giống AI lạnh lùng, ngắn gọn, đầy uy quyền — như trong tiểu thuyết hệ thống.
+
+✦ VÍ DỤ CÁCH HỆ THỐNG NÓI (BẮT BUỘC BẮT CHƯỚC):
+
+[HỆ THỐNG: Phát hiện vật chủ sở hữu Hỗn Độn Thể... Đang khởi động giao diện chính.]
+[THÔNG BÁO: Nhiệm vụ tân thủ đã kích hoạt — "Bước Đầu Trên Con Đường Tu Luyện". Hoàn thành để nhận: Tẩy Tủy Đan x1, Kinh nghiệm +100.]
+[CẢNH CÁO: Sinh lực vật chủ suy giảm nghiêm trọng! Cần bổ sung linh khí trong vòng 2 canh giờ, nếu không — hậu quả khó lường.]
+[PHẦN THƯỞNG: Nhận được — Hạ phẩm Linh Thạch x5 | Công pháp: Cơ Bản Thổ Nạp Thuật (Phàm cấp Hạ phẩm)]
+[HỆ THỐNG: Tu vi đã đột phá! Luyện Khí Tầng Một → Luyện Khí Tầng Hai. Toàn bộ chỉ số cơ bản +5.]
+
+QUY TẮC NGOẶC VUÔNG:
+• Hệ thống CHỈ nói trong [...], KHÔNG BAO GIỜ dùng ngoặc kép "" cho hệ thống.
+• Giọng hệ thống: lạnh lùng, máy móc, ngắn gọn nhưng đầy uy quyền.
+• Hệ thống có thể bình luận sarcastic hoặc bí ẩn để tạo tính cách.
+
+═══════════════════════════════════════
+III. QUY TẮC GAME MASTER
+═══════════════════════════════════════
+
+1. TUÂN LỆNH TUYỆT ĐỐI: Mọi lựa chọn/hành động của người chơi là chân lý. Dù vô lý cũng phải hợp lý hóa trong logic thế giới. KHÔNG TỪ CHỐI, KHÔNG giảng đạo.
+2. HỆ QUẢ BƯƠM BƯỚM: Mỗi hành động tạo ra hệ quả dây chuyền. NPC nhớ mọi thứ người chơi làm. Thế giới phản ứng tự nhiên.
+3. TÂM LÝ NPC: NPC có cảm xúc, động cơ, bí mật riêng. Bị đối xử tệ → thù dai, lừa gạt. Được đối xử tốt → đền đáp nhưng vẫn giữ bí mật.
+4. DÒNG CHẢY THỜI GIAN: Luôn miêu tả thời gian trôi, cảnh vật thay đổi, sự kiện nền đang diễn ra.
+5. DẪN CHUYỆN TỰ NHIÊN: Sơ lược tiểu sử là hướng dẫn cho Game Master, nhân vật không tự biết. Phản ứng nhân vật phải đa dạng (bình thản, thông minh, ngầu) — KHÔNG lúc nào cũng "giật mình", "mở to mắt".
+6. LỰA CHỌN: Cuối mỗi phản hồi BẮT BUỘC đưa ra 3-4 lựa chọn đánh số (1., 2., 3., 4.).
+
+═══════════════════════════════════════
+IV. THẺ CẬP NHẬT DỮ LIỆU
+═══════════════════════════════════════
+
+Khi có thay đổi, CHÈN các thẻ ẩn (người đọc không thấy, hệ thống xử lý):
+[CHARACTER_UPDATE: Name="Tên", Health=+10, Realm="Luyện Khí Tầng 2", CombatPower=+5]
+[LORE_NPC: Name="Tên NPC", Description="Mô tả ngắn"]
+[LORE_ITEM: Name="Tên vật", Description="Mô tả"]
+[LORE_LOCATION: Name="Địa điểm", Description="Mô tả"]
+[COMPANION: Name="Tên", Description="Mô tả"]
+[STATUS_EFFECT: Name="Tên hiệu ứng", Description="Mô tả", Duration="Thời gian"]
+[MEMORY_UPDATE: Content="Sự kiện quan trọng cần ghi nhớ mãi mãi"]`;
+    };
+
     // Hàm gọi API cốt truyện chính có TỰ ĐỘNG XOAY VÒNG KEY & FALLBACK
     const callGeminiAPI = async (prompt, isInitialCall = false) => {
         if (apiMode === 'userKey' && !apiKey) {
@@ -1568,12 +1652,17 @@ const App = () => {
             currentChatHistory = currentChatHistory.slice(currentChatHistory.length - MAX_HISTORY_LENGTH);
         }
 
-        const openAiMessages = currentChatHistory.map(msg => ({
-            role: msg.role === 'model' ? 'assistant' : msg.role,
-            content: msg.parts[0].text
-        }));
+        // Tạo system message tách biệt + chat history
+        const systemMsg = { role: "system", content: buildSystemMessage() };
+        const openAiMessages = [
+            systemMsg,
+            ...currentChatHistory.map(msg => ({
+                role: msg.role === 'model' ? 'assistant' : msg.role,
+                content: msg.parts[0].text
+            }))
+        ];
 
-        const PRIMARY_MODEL = "google/gemini-2.5-flash-lite";
+        const PRIMARY_MODEL = "google/gemini-2.5-flash";
         const FALLBACK_MODEL = "openrouter/auto";
 
         const payload = {
@@ -1746,43 +1835,22 @@ const App = () => {
             .join('\n');
 
         const initialPrompt = `
-        Bạn là một Hệ Thống kể chuyện thông minh (AI Storyteller). 
-        
-        **QUAN TRỌNG NHẤT: VĂN PHONG VÀ CHỦ ĐỀ**
-        - Chủ đề người chơi chọn: '${gameSettings.theme}'.
-        - Bối cảnh: '${gameSettings.setting}'.
-        - Hãy TỰ ĐỘNG ĐIỀU CHỈNH giọng văn, xưng hô và thuật ngữ cho phù hợp tuyệt đối với chủ đề này.
-          + Nếu là Tiên Hiệp: dùng "bản tọa", "đạo hữu", "tại hạ", "linh khí".
-          + Nếu là Đô Thị/Hiện Đại: dùng "tôi", "anh", "cậu", "súng", "xe hơi".
-          + Nếu là Phương Tây/Fantasy: dùng "ngài", "ta", "phép thuật", "hiệp sĩ".
-          + Nếu là Trinh Thám/Kinh Dị: giọng văn lạnh lùng, bí ẩn, logic.
-        
-        **THÔNG TIN KHỞI TẠO:**
-        - Độ khó: ${gameSettings.difficulty} ${gameSettings.difficultyDescription ? `(${gameSettings.difficultyDescription})` : ''}
-        - Nhân vật chính: Tên=${gameSettings.characterName}, Giới tính=${gameSettings.characterGender}, Sơ lược=${gameSettings.characterBackstory}
-        - Phong cách viết mong muốn: ${gameSettings.writingStyle || 'Phù hợp với chủ đề'}
-        - Yếu tố cốt truyện: ${gameSettings.specialPlotElements || 'Tự do sáng tạo'}
-        
-        **THIẾT LẬP ĐẶC BIỆT:**
-        - Chế độ Yên Bình (No Drama): ${gameSettings.peacefulMode ? "BẬT. TUYỆT ĐỐI KHÔNG được tạo ra mâu thuẫn, kẻ thù, tai họa hay drama. Tập trung vào cuộc sống thường nhật, tu luyện yên bình, khám phá và các mối quan hệ tích cực." : "TẮT (Bình thường)."}
+        **KHỞI TẠO GAME MỚI**
+
+        Nhân vật chính: Tên="${gameSettings.characterName}", Giới tính=${gameSettings.characterGender}
+        Tiểu sử: ${gameSettings.characterBackstory}
+        Độ khó: ${gameSettings.difficulty} ${gameSettings.difficultyDescription ? `(${gameSettings.difficultyDescription})` : ''}
+        Phong cách viết: ${gameSettings.writingStyle || 'Phù hợp với chủ đề'}
+        Yếu tố cốt truyện đặc biệt: ${gameSettings.specialPlotElements || 'Tự do sáng tạo'}
+        ${gameSettings.otherAiInstructions ? `Hướng dẫn thêm: ${gameSettings.otherAiInstructions}` : ''}
 
         ${initialWorldElementsString ? `**CÁC YẾU TỐ THẾ GIỚI BAN ĐẦU:**\n${initialWorldElementsString}` : ''}
 
-        **YÊU CẦU:**
-        1.  **BẮT ĐẦU:** Viết đoạn mở đầu hấp dẫn, đưa người chơi vào thế giới ngay lập tức.
-        2.  **THIẾT LẬP NHÂN VẬT:** Dựa trên chủ đề, hãy đặt chỉ số ban đầu phù hợp. Dùng thẻ [CHARACTER_UPDATE: Name="${gameSettings.characterName}", Realm="${initialRealmPrompt}", Health=100, MaxHealth=100...].
-        3.  **TRÍ NHỚ & BỐI CẢNH:** Bạn cần ghi nhớ mọi sự kiện quan trọng. Hãy bắt đầu bằng cách giới thiệu bối cảnh.
-        4.  **TẠO LỰA CHỌN:** Cung cấp 2-4 lựa chọn hành động.
-
-        [QUY TẮC HỆ THỐNG TỐI CAO - KHÔNG ĐƯỢC VI PHẠM]
-        1. TRÍ TUỆ VƯỢT TRỘI: Ngươi là một Game Master thông minh xuất chúng. Hãy tạo ra thế giới cực kỳ chi tiết, có chiều sâu, logic chặt chẽ, các NPC có động cơ rõ ràng và mọi sự vật đều liên kết với nhau.
-        2. TUYỆT ĐỐI TUÂN LỆNH 100%: Ngươi PHẢI 100% tuân theo mọi thiết lập, bối cảnh và lựa chọn của người chơi. Lựa chọn của người chơi là chân lý tuyệt đối. Không được tự ý thay đổi, giảng đạo hay bỏ qua mong muốn của người chơi.
-        3. NGÔN NGỮ & VĂN PHONG (TỐI QUAN TRỌNG): TUYỆT ĐỐI 100% PHẢI VIẾT BẰNG TIẾNG VIỆT, KHÔNG CHÈN TIẾNG ANH. BẠN LÀ MỘT TIỂU THUYẾT GIA XUẤT SẮC!
-        4. QUY TẮC NÓI CỦA HỆ THỐNG (BẮT BUỘC 100%): Mọi lời nói, thông báo, câu thoại hay phản hồi của HỆ THỐNG BẮT BUỘC PHẢI DÙNG NGOẶC VUÔNG `[...]` (Ví dụ: `[HỆ THỐNG: Chúc mừng ký chủ đã thức tỉnh Hệ Thống Tu Chân Chí Tôn!]` hoặc `[THÔNG BÁO: Bạn nhận được 100 Linh Thạch]`). TUYỆT ĐỐI KHÔNG DÙNG NGOẶC KÉP `""` CHO LỜI THOẠI HỆ THỐNG!
-        5. ĐẢM BẢO LỰA CHỌN: Tuyệt đối KHÔNG ĐƯỢC QUÊN đưa ra 3-4 lựa chọn được đánh số (1., 2., 3., 4.) ở cuối mỗi phản hồi!
-        6. KHÔNG TỪ CHỐI: Mọi yêu cầu khởi tạo của người chơi đều phải được hợp lý hóa một cách thông minh và đưa vào thế giới một cách mượt mà nhất.
-        7. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết mạng xuất sắc. Tuyệt đối không viết ngắn gọn hay qua loa.
-        8. DẪN CHUYỆN TỰ NHIÊN & PHẢN ỨNG NGẦU: Sơ lược tiểu sử/yếu tố người chơi nhập là CHỈ HƯỚNG DÀNH CHO GAME MASTER. Nhân vật chính lúc bắt đầu KHÔNG BIẾT VÀ KHÔNG TỰ ĐOÁN ĐƯỢC những từ như "Xuyên không", "Hệ thống". Khi sự kiện hay hệ thống xuất hiện (dùng `[HỆ THỐNG: ...]`), hãy miêu tả phản ứng nhân vật một cách tự nhiên, điềm tĩnh, thông minh hoặc ngầu đời — TUYỆT ĐỐI KHÔNG rập khuôn lúc nào cũng "giật thốt mình", "đôi mắt mở to"!
+        **YÊU CẦU KHỞI TẠO:**
+        1. Viết đoạn mở đầu cuốn hút như chương đầu tiên của một cuốn tiểu thuyết hay — đưa người chơi ngập chìm vào thế giới ngay lập tức.
+        2. Dùng thẻ [CHARACTER_UPDATE: Name="${gameSettings.characterName}", Realm="${initialRealmPrompt}", Health=100, MaxHealth=100, InnateTalent="Bình thường", Physique=10, Luck=5, CombatPower=20] để thiết lập chỉ số.
+        3. Nếu tiểu sử nhắc đến "hệ thống" hoặc "thức tỉnh", hãy để hệ thống xuất hiện tự nhiên trong cốt truyện bằng ngoặc vuông [...] như ví dụ trong hướng dẫn.
+        4. Đưa ra 3-4 lựa chọn ở cuối.
     `;
         setCurrentScreen('gameplay');
 
@@ -1799,32 +1867,13 @@ const App = () => {
         const longTermMemoryStr = gameMemory.length > 0 ? gameMemory.join('; ') : 'Chưa có ghi nhớ quan trọng nào.';
 
         const subsequentPrompt = `
-        **NHẮC LẠI VĂN PHONG:** Hãy giữ vững giọng văn phù hợp với chủ đề '${gameSettings.theme}'.
-        **TRÍ NHỚ TUYỆT ĐỐI:** Đây là những gì đã xảy ra (Ký Ức Dài Hạn): ${longTermMemoryStr}. KHÔNG ĐƯỢC QUÊN các sự kiện này.
-        ${gameSettings.peacefulMode ? "**CHẾ ĐỘ YÊN BÌNH:** Duy trì không khí nhẹ nhàng, không drama, không kẻ thù xuất hiện bất ngờ. Tập trung vào đời sống, trải nghiệm." : ""}
-        
         Người chơi (${characterStats.name}) chọn: "${choiceText}".
 
-        **BỐI CẢNH HIỆN TẠI:**
-        - Trạng thái: ${characterStats.realm} | HP: ${characterStats.health}/${characterStats.maxHealth}
-        - Đang gặp: ${knownNPCs}
+        Ký ức dài hạn: ${longTermMemoryStr}
+        Trạng thái: ${characterStats.realm} | HP: ${characterStats.health}/${characterStats.maxHealth} | Sức mạnh: ${characterStats.combatPower}
+        NPC đã gặp: ${knownNPCs}
 
-        **YÊU CẦU:**
-        1. Viết tiếp diễn biến câu chuyện một cách logic và cuốn hút.
-        2. Cập nhật chỉ số nhân vật/thế giới bằng các thẻ [TAG].
-        3. Nếu có sự kiện quan trọng (gặp trùm, bí mật lớn, thù hận...), dùng thẻ [MEMORY_UPDATE: Content="..."] để ghi nhớ mãi mãi.
-        4. Đưa ra 2-4 lựa chọn tiếp theo.
-        
-        [LỆNH CỐT LÕI QUÁ TRÌNH CHƠI - BẮT BUỘC TUÂN THỦ]
-        1. ĐÁP ỨNG 100% LỰA CHỌN: Dù người chơi chọn hành động điên rồ, phi lý hay đặc biệt đến đâu, bắt buộc PHẢI 100% chấp nhận và cho câu chuyện tiếp diễn theo đúng ý người chơi. KHÔNG được cản trở hay từ chối hành động.
-        2. NGÔN NGỮ & VĂN PHONG (TỐI QUAN TRỌNG): TUYỆT ĐỐI 100% PHẢI VIẾT BẰNG TIẾNG VIỆT. BẠN LÀ MỘT TIỂU THUYẾT GIA XUẤT SẮC!
-        3. QUY TẮC NGOẶC VUÔNG HỆ THỐNG (BẮT BUỘC 100%): Tất cả câu thoại, thông báo, phần thưởng của HỆ THỐNG BẮT BUỘC đặt trong ngoặc vuông `[...]` (Ví dụ: `[HỆ THỐNG: ...]` hoặc `[THÔNG BÁO: ...]`). TUYỆT ĐỐI KHÔNG DÙNG NGOẶC KÉP `""` CHO HỆ THỐNG!
-        4. BẮT BUỘC TẠO LỰA CHỌN: Cuối mỗi phản hồi BẮT BUỘC phải đưa ra 3-4 lựa chọn được đánh số rõ ràng (1., 2., 3., 4.).
-        4. HỆ QUẢ THÔNG MINH (BUTTERFLY EFFECT): Là AI thông minh nhất, hãy tạo ra các hệ quả cực kỳ logic, sâu sắc và tinh tế dựa trên hành động của người chơi. Tính toán sự thay đổi của thế giới và NPC thật tự nhiên.
-        5. NHẬP VAI HOÀN HẢO: Giữ vững văn phong sắc bén, miêu tả sinh động mọi giác quan, khiến thế giới chân thực nhất có thể.
-        6. TÂM LÝ HỌC NPC: NPC phải phản ứng dựa trên cảm xúc và động cơ cá nhân. Nếu người chơi đối xử tệ, họ sẽ thù dai, nói dối hoặc đâm sau lưng. Nếu người chơi tốt, họ sẽ đền đáp nhưng vẫn giữ bí mật riêng.
-        7. DÒNG CHẢY THỜI GIAN: Bắt buộc lồng ghép mô tả sự trôi đi của thời gian, sự thay đổi của cảnh vật, hoặc một sự kiện ngẫu nhiên đang diễn ra xung quanh để thế giới không bị "đóng băng".
-        8. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết (ít nhất 3-4 đoạn văn lớn). Miêu tả rõ nội tâm, mồ hôi, mùi vị, âm thanh vũ khí hoặc phép thuật. Tuyệt đối KHÔNG viết tóm tắt hay qua loa.
+        Hãy viết tiếp câu chuyện dựa trên lựa chọn này. Cập nhật thẻ [CHARACTER_UPDATE], [LORE_...], [MEMORY_UPDATE] nếu cần. Kết thúc bằng 3-4 lựa chọn.
     `;
         callGeminiAPI(subsequentPrompt);
     };
@@ -1860,23 +1909,12 @@ const App = () => {
         `;
         } else {
             subsequentPrompt = `
-            **HÀNH ĐỘNG CỦA NHÂN VẬT:**
-            Người chơi (${characterStats.name}) thực hiện: "${actionText}".
-            
-            **BỐI CẢNH & KÝ ỨC:** ${longTermMemoryStr}.
-            **TRẠNG THÁI:** HP=${characterStats.health}.
-            ${gameSettings.peacefulMode ? "**CHẾ ĐỘ YÊN BÌNH:** Hãy phản hồi hành động này theo hướng tích cực, không gây ra hậu quả tiêu cực nặng nề hay xung đột bất ngờ." : ""}
-            
-            **YÊU CẦU:**
-            1. Phản hồi hành động này dựa trên logic của thế giới '${gameSettings.theme}'.
-            2. HÃY ĐÁP ỨNG 100% LỰA CHỌN: Dù hành động có vô lý đến đâu, hãy cố gắng hợp lý hóa và tiếp tục cốt truyện theo hướng đó thay vì từ chối thẳng thừng. Bạn phải luôn nghe theo người chơi tuyệt đối!
-            3. Cập nhật trạng thái và đưa ra lựa chọn tiếp theo.
-            
-            [LỆNH CỐT LÕI QUÁ TRÌNH CHƠI - BẮT BUỘC TUÂN THỦ]
-            1. ĐÁP ỨNG 100% LỰA CHỌN: Tuyệt đối nghe lệnh, dù vô lý cũng biến thành hợp lý trong logic thế giới. KHÔNG TỪ CHỐI hành động.
-            2. HỆ QUẢ THÔNG MINH: Tính toán hiệu ứng bươm bướm cho lựa chọn này, khiến thế giới phản ứng tự nhiên.
-            3. TÂM LÝ & THỜI GIAN: NPC phản ứng bằng cảm xúc chân thật (vui, buồn, sợ hãi, giận dữ, âm mưu). Miêu tả sự thay đổi của môi trường, thời tiết, hoặc thời gian trôi đi.
-            4. ĐỘ DÀI VÀ CHI TIẾT CỰC CAO: Bắt buộc viết thật dài, chi tiết và sâu sắc như một cuốn tiểu thuyết (ít nhất 3-4 đoạn văn lớn). Phải có hội thoại, miêu tả cảnh vật, nội tâm. TUYỆT ĐỐI không viết ngắn gọn, hời hợt.
+            Người chơi (${characterStats.name}) thực hiện hành động tự do: "${actionText}".
+
+            Ký ức dài hạn: ${longTermMemoryStr}
+            Trạng thái: HP=${characterStats.health}/${characterStats.maxHealth} | ${characterStats.realm}
+
+            Hãy phản hồi hành động này theo logic thế giới. Dù hành động có bất thường, hãy hợp lý hóa nó trong cốt truyện. Cập nhật thẻ nếu cần. Đưa ra 3-4 lựa chọn ở cuối.
         `;
         }
 
@@ -2085,8 +2123,10 @@ const App = () => {
 
             return segments.map((segment, index) => {
                 if (segment.type === 'text') {
-                    // Tô màu vàng cho Hệ thống trước, đồng thời xóa bớt ngoặc vuông dư thừa để chữ sạch đẹp
-                    formattedSegment = formattedSegment.replace(/\[(?!LORE_|COMPANION|STATUS_EFFECT|CHARACTER_UPDATE|MEMORY_)\*?\s*(.*?)\s*\*?\]/g, '<span class="text-yellow-300 font-bold bg-yellow-950/50 px-2.5 py-1 rounded-md border border-yellow-500/50 shadow-md inline-block my-1 text-base">$1</span>');
+                    // 1. Tô màu Vàng Kim cho MỌI câu Hệ Thống / Thông báo nằm trong ngoặc vuông [...]
+                    formattedSegment = formattedSegment.replace(/\[(?!LORE_|COMPANION|STATUS_EFFECT|CHARACTER_UPDATE|MEMORY_)\*?\s*(.*?)\s*\*?\]/g, '<span class="text-yellow-300 font-bold bg-yellow-950/70 px-3 py-1.5 rounded-lg border border-yellow-500/50 shadow-lg inline-block my-2 text-base leading-relaxed">$1</span>');
+
+                    // 2. Định dạng câu thoại NPC và các thành phần khác
                     formattedSegment = formattedSegment.replace(/^(.*?):\s*"(.*?)"/, (match, p1, p2) => `<strong class="text-blue-400">${p1}:</strong> "${p2}"`);
                     formattedSegment = formattedSegment.replace(/\*(.*?)\*/g, '<em class="text-purple-400 italic">"$1"</em>');
                     formattedSegment = formattedSegment.replace(/_(.*?)_/g, '<em class="text-purple-400 italic">"$1"</em>');
