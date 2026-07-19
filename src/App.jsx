@@ -641,7 +641,7 @@ const GameplayScreen = ({
     handleCustomAction, setShowLoreModal, handleFetchStorySummary, isFetchingSummary,
     isProcessingAction,
     characterStats, handleManualSave, chatHistoryForGemini, isDevMode,
-    isGodMode, setIsGodMode
+    isGodMode, setIsGodMode, setShowSettingsModal
 }) => {
     const lastAIResponse = isDevMode ? chatHistoryForGemini.filter(m => m.role === 'model').pop()?.parts[0].text : null;
 
@@ -672,7 +672,7 @@ const GameplayScreen = ({
                             <BookOpenIcon className="w-4 h-4" />
                         </button>
                         <button onClick={() => setShowSettingsModal(true)} disabled={isLoading || isProcessingAction} className="bg-purple-600 hover:bg-purple-700 text-white font-semibold p-2 rounded-lg shadow-md transition-colors flex items-center text-xs disabled:bg-gray-500" title="Cài Đặt AI Model">
-                            <Cog6ToothIcon className="w-4 h-4" />
+                            <CogIcon />
                         </button>
                         <button onClick={restartGame} disabled={isLoading || isProcessingAction} className="bg-red-600 hover:bg-red-700 text-white font-semibold p-2 rounded-lg shadow-md transition-colors flex items-center text-xs disabled:bg-gray-500" title="Bắt đầu lại">
                             <ArrowPathIcon />
@@ -2192,6 +2192,7 @@ THẺ CẬP NHẬT ẨN (ĐẶT Ở CUỐI PHẢN HỒI)
                     isDevMode={isDevMode}
                     isGodMode={isGodMode}
                     setIsGodMode={setIsGodMode}
+                    setShowSettingsModal={setShowSettingsModal}
                 />
             )}
             <SettingsModal
