@@ -1645,6 +1645,7 @@ THẺ CẬP NHẬT ẨN (ĐẶT Ở CUỐI PHẢN HỒI)
 
         const payload = {
             model: selectedModel,
+            models: [selectedModel, "google/gemini-2.5-flash-lite", "meta-llama/llama-3.3-70b-instruct:free"],
             max_tokens: 4096,
             messages: openAiMessages
         };
