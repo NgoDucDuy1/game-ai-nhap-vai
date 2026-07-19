@@ -153,7 +153,7 @@ const SettingsModal = ({
                                 <option key={m.id} value={m.id}>{m.name}</option>
                             ))}
                         </select>
-                        <p className="mt-2 text-xs text-gray-400">Bạn có thể đổi sang model Gemma 4 31B hoặc Llama 3.3 bất cứ lúc nào.</p>
+                        <p className="mt-2 text-xs text-gray-400">Bạn có thể chọn giữa Gemini 2.5 Flash Lite và OpenRouter Auto Free.</p>
                     </div>
 
                     <div className="border-t border-gray-600 pt-4">
@@ -925,10 +925,7 @@ const App = () => {
     const [selectedModel, setSelectedModel] = useState('google/gemini-2.5-flash-lite');
     const AVAILABLE_MODELS = [
         { id: 'google/gemini-2.5-flash-lite', name: '⚡ Gemini 2.5 Flash Lite (Mặc định - Siêu nhanh)' },
-        { id: 'google/gemma-4-31b-it:free', name: '💎 Google Gemma 4 31B (Miễn phí - Mới nhất)' },
-        { id: 'google/gemma-4-26b-a4b-it:free', name: '🌟 Google Gemma 4 26B (Miễn phí)' },
-        { id: 'meta-llama/llama-3.3-70b-instruct:free', name: '🦙 Meta Llama 3.3 70B (Miễn phí)' },
-        { id: 'openrouter/free', name: '🔀 OpenRouter Auto Free (Tự động chọn)' }
+        { id: 'openrouter/free', name: '🔀 OpenRouter Auto Free (Tự động chọn model miễn phí)' }
     ];
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [inputApiKey, setInputApiKey] = useState('');
@@ -1645,7 +1642,7 @@ THẺ CẬP NHẬT ẨN (ĐẶT Ở CUỐI PHẢN HỒI)
 
         const payload = {
             model: selectedModel,
-            models: [selectedModel, "google/gemini-2.5-flash-lite", "meta-llama/llama-3.3-70b-instruct:free"],
+            models: [selectedModel, "google/gemini-2.5-flash-lite", "openrouter/free"],
             max_tokens: 4096,
             messages: openAiMessages
         };
