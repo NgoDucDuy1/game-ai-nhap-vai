@@ -104,7 +104,8 @@ const SettingsModal = ({
     show, onClose,
     inputApiKey, setInputApiKey, apiKeyStatus, saveApiKey, testApiKey,
     isLoading, apiKey, setApiKeyStatus, apiMode, setApiMode,
-    setModalMessage, isDevMode, setIsDevMode
+    setModalMessage, isDevMode, setIsDevMode,
+    selectedModel, setSelectedModel, AVAILABLE_MODELS
 }) => {
     if (!show) return null;
 
@@ -139,6 +140,20 @@ const SettingsModal = ({
                                 Hiển thị phản hồi gốc từ AI
                             </label>
                         </div>
+                    </div>
+
+                    <div className="border-t border-gray-600 pt-4 mb-4">
+                        <h3 className="text-xl font-semibold text-purple-400 mb-3"> Chọn AI Model Kể Chuyện </h3>
+                        <select
+                            value={selectedModel}
+                            onChange={(e) => setSelectedModel(e.target.value)}
+                            className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white font-medium focus:ring-purple-500 focus:border-purple-500"
+                        >
+                            {AVAILABLE_MODELS.map(m => (
+                                <option key={m.id} value={m.id}>{m.name}</option>
+                            ))}
+                        </select>
+                        <p className="mt-2 text-xs text-gray-400">Bạn có thể đổi sang model Gemma 4 31B hoặc Llama 3.3 bất cứ lúc nào.</p>
                     </div>
 
                     <div className="border-t border-gray-600 pt-4">
@@ -656,6 +671,9 @@ const GameplayScreen = ({
                         <button onClick={() => setShowLoreModal(true)} disabled={isLoading || isProcessingAction} className="bg-teal-600 hover:bg-teal-700 text-white font-semibold p-2 rounded-lg shadow-md transition-colors flex items-center text-xs disabled:bg-gray-500" title="Sổ tay">
                             <BookOpenIcon className="w-4 h-4" />
                         </button>
+                        <button onClick={() => setShowSettingsModal(true)} disabled={isLoading || isProcessingAction} className="bg-purple-600 hover:bg-purple-700 text-white font-semibold p-2 rounded-lg shadow-md transition-colors flex items-center text-xs disabled:bg-gray-500" title="Cài Đặt AI Model">
+                            <Cog6ToothIcon className="w-4 h-4" />
+                        </button>
                         <button onClick={restartGame} disabled={isLoading || isProcessingAction} className="bg-red-600 hover:bg-red-700 text-white font-semibold p-2 rounded-lg shadow-md transition-colors flex items-center text-xs disabled:bg-gray-500" title="Bắt đầu lại">
                             <ArrowPathIcon />
                         </button>
@@ -904,7 +922,14 @@ const App = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [userId, setUserId] = useState(null);
     const [isAuthReady, setIsAuthReady] = useState(false);
-    const [showSettingsModal, setShowSettingsModal] = useState(false);
+    const [selectedModel, setSelectedModel] = useState('google/gemini-2.5-flash-lite');
+    const AVAILABLE_MODELS = [
+        { id: 'google/gemini-2.5-flash-lite', name: '⚡ Gemini 2.5 Flash Lite (Mặc định - Siêu nhanh)' },
+        { id: 'google/gemma-4-31b-it:free', name: '💎 Google Gemma 4 31B (Miễn phí - Mới nhất)' },
+        { id: 'google/gemma-4-26b-a4b-it:free', name: '🌟 Google Gemma 4 26B (Miễn phí)' },
+        { id: 'meta-llama/llama-3.3-70b-instruct:free', name: '🦙 Meta Llama 3.3 70B (Miễn phí)' },
+        { id: 'openrouter/free', name: '🔀 OpenRouter Auto Free (Tự động chọn)' }
+    ];
     const [inputApiKey, setInputApiKey] = useState('');
     const [chatHistoryForGemini, setChatHistoryForGemini] = useState([]);
     const [modalMessage, setModalMessage] = useState({ show: false, title: '', content: '', type: 'info' });
@@ -1201,7 +1226,7 @@ const App = () => {
         const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
         const payload = {
-            model: "google/gemini-2.5-flash-lite",
+            model: selectedModel,
             max_tokens: 4096,
             messages: [{ role: "user", content: promptText }]
         };
@@ -1618,7 +1643,7 @@ THẺ CẬP NHẬT ẨN (ĐẶT Ở CUỐI PHẢN HỒI)
         const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
         const payload = {
-            model: "google/gemini-2.5-flash-lite",
+            model: selectedModel,
             max_tokens: 4096,
             messages: openAiMessages
         };
@@ -2185,6 +2210,9 @@ THẺ CẬP NHẬT ẨN (ĐẶT Ở CUỐI PHẢN HỒI)
                 setModalMessage={setModalMessage}
                 isDevMode={isDevMode}
                 setIsDevMode={setIsDevMode}
+                selectedModel={selectedModel}
+                setSelectedModel={setSelectedModel}
+                AVAILABLE_MODELS={AVAILABLE_MODELS}
             />
             {showLoreModal && (
                 <LoreModal
