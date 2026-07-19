@@ -930,6 +930,7 @@ const App = () => {
         { id: 'meta-llama/llama-3.3-70b-instruct:free', name: '🦙 Meta Llama 3.3 70B (Miễn phí)' },
         { id: 'openrouter/free', name: '🔀 OpenRouter Auto Free (Tự động chọn)' }
     ];
+    const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [inputApiKey, setInputApiKey] = useState('');
     const [chatHistoryForGemini, setChatHistoryForGemini] = useState([]);
     const [modalMessage, setModalMessage] = useState({ show: false, title: '', content: '', type: 'info' });
