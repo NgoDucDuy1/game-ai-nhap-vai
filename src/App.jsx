@@ -30,7 +30,7 @@ const SunIcon = ({ className = "w-5 h-5" }) => <svg xmlns="http://www.w3.org/200
 
 // --- HỆ THỐNG KEY OPENROUTER ---
 const SYSTEM_API_KEYS = [
-    "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"
+    "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"
 ];
 
 const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
